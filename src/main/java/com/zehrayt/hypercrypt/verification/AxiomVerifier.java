@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
+import com.zehrayt.hypercrypt.dtos.VerificationResult;
+
 public class AxiomVerifier<T> {
 
     // Hiper-işlemi temsil eden fonksiyonel arayüz
@@ -87,5 +89,40 @@ public class AxiomVerifier<T> {
             }
         }
         return true;
+    }
+
+    public VerificationResult verifyAll() {
+        VerificationResult result = new VerificationResult();
+        
+        // 1. Semihypergroup kontrolü
+        result.setSemihypergroup(isAssociative());
+        if (!result.isSemihypergroup()) {
+            result.setFailingAxiom("Birleşme Özelliği (Associativity)");
+        }
+
+        // 2. Quasihypergroup kontrolü
+        result.setQuasihypergroup(checkReproductionAxiom());
+        if (!result.isQuasihypergroup()) {
+            // Eğer daha önce hata bulunmadıysa, bu ilk hatadır.
+            if (result.getFailingAxiom() == null) {
+                result.setFailingAxiom("Üretim Aksiyomu (Reproduction)");
+            }
+        }
+
+        // 3. Hypergroup kontrolü
+        result.setHypergroup(result.isSemihypergroup() && result.isQuasihypergroup());
+        
+        // 4. Ulaşılan en yüksek yapıyı belirle
+        if (result.isHypergroup()) {
+            result.setHighestStructure("Hipergrup");
+        } else if (result.isSemihypergroup()) {
+            result.setHighestStructure("Yarı Hipergrup (Semihypergroup)");
+        } else if (result.isQuasihypergroup()) {
+            result.setHighestStructure("Kuazi Hipergrup (Quasihypergroup)");
+        } else {
+            result.setHighestStructure("Hipergrupoid");
+        }
+        
+        return result;
     }
 }

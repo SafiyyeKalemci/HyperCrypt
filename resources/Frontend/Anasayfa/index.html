@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Çarpımsal Hiperhalkaların Algoritmik Modellemesi</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../header.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="header"></div>
+
+    <!--Proje Hakkında-->
+    <section class="content-section">
+      <div class="text">
+        <h2>Projemiz Hakkında</h2>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse,
+          ducimus. Maxime iusto quod dolor eius ipsa tempore nesciunt corporis
+          autem non? Inventore soluta fugit reprehenderit cum alias dolorum ea
+          nam.
+        </p>
+      </div>
+    </section>
+
+    <!--Hiperhalkaları Keşfet-->
+    <section class="content-section reverse">
+      <div class="text">
+        <h2>Hiperhalkaları Keşfet</h2>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse,
+          ducimus. Maxime iusto quod dolor eius ipsa tempore nesciunt corporis
+          autem non? Inventore soluta fugit reprehenderit cum alias dolorum ea
+          nam.
+        </p>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo
+          impedit, fugiat magnam consectetur officia rerum nostrum consequuntur
+          ipsum veritatis quidem facilis adipisci, facere, rem labore reiciendis
+          doloremque saepe repellat laudantium.
+        </p>
+      </div>
+
+      <div class="image">
+        <img src="" alt="Hiperhalka Görseli" />
+      </div>
+    </section>
+
+    <!--Fonksiyon Hakkında-->
+    <section class="content-section">
+      <div class="text">
+        <h2>Fonksiyon Hakkında</h2>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse,
+          ducimus. Maxime iusto quod dolor eius ipsa tempore nesciunt corporis
+          autem non? Inventore soluta fugit reprehenderit cum alias dolorum ea
+          nam.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit quos
+          quas dolores consequatur ipsa at, veniam nihil praesentium esse cumque
+          iste sint veritatis adipisci obcaecati. Neque ipsa odit vel sint.
+        </p>
+        <a href="fonksiyon" class="btn">Fonksiyonu Dene</a>
+      </div>
+
+      <div class="image">
+        <img src="" alt="Fonksiyon Görseli" />
+      </div>
+    </section>
+
+    <!--Hakkımızda Özet-->
+    <section class="about-section">
+      <div class="about-preview">
+        <div class="about-header">
+          <h2>Hakkımızda</h2>
+          <a href="hakkimizda" class="btn">Tümünü Gör</a>
+        </div>
+
+        <div class="about-cards">
+          <!-- Kart 1 -->
+          <div class="card">
+            <div class="card-header">
+              <img src="fatma.jpg" alt="Fatma Zehra Aytaş" />
+              <div class="info">
+                <h3>Fatma Zehra Aytaş</h3>
+                <p>İstanbul Aydın Üniversitesi</p>
+              </div>
+            </div>
+            <p class="desc">
+              İstanbul Aydın Üniversitesi Bilgisayar Mühendisliği 3. sınıf
+              öğrencisi, web geliştirme üzerine çalışıyor.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <img src="safiyye.jpg" alt="Safiyye Kalemci" />
+              <div class="info">
+                <h3>Safiyye Kalemci</h3>
+                <p>İstanbul Aydın Üniversitesi</p>
+              </div>
+            </div>
+            <p class="desc">
+              İstanbul Aydın Üniversitesi Bilgisayar Mühendisliği 3. sınıf
+              öğrencisi, web geliştirme üzerine çalışıyor.
+            </p>
+          </div>
+
+          <!-- Kart 3 -->
+          <div class="card">
+            <div class="card-header">
+              <img src="elif.jpg" alt="Elif Özel Ay" />
+              <div class="info">
+                <h3>Dr. Öğretim Üyesi Elif Özel Ay</h3>
+                <p>İstanbul Aydın Üniversitesi</p>
+              </div>
+            </div>
+            <p class="desc">
+              Projemizin danışmanı, akademik ve teknik rehberlik sağlamaktadır.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      fetch("../header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header").innerHTML = data;
+        })
+        .catch((error) => console.error("Header yüklenemedi:", error));
+    </script>
+  </body>
+</html>

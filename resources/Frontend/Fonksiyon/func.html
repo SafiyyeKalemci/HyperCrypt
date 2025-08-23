@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fonksiyon</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../header.css" />
+    <link rel="stylesheet" href="func.css" />
+  </head>
+  <body>
+    <!--HEADER-->
+    <div id="header"></div>
+
+    <section class="content-section">
+      <div class="text">
+        <h2>Fonksiyon Hakkında</h2>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse,
+          ducimus. Maxime iusto quod dolor eius ipsa tempore nesciunt corporis
+          autem non? Inventore soluta fugit reprehenderit cum alias dolorum ea
+          nam.
+        </p>
+      </div>
+    </section>
+    
+    <script>
+      fetch("../header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header").innerHTML = data;
+        })
+        .catch((error) => console.error("Header yüklenemedi:", error));
+    </script>
+  </body>
+</html>

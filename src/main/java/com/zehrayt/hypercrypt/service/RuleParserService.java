@@ -30,21 +30,33 @@ public class RuleParserService {
             
             // Bu JavaScript fonksiyonunu çağıran bir Java BiFunction döndürüyoruz.
             return (a, b) -> {
-                // JavaScript fonksiyonunu 'a' ve 'b' değerleriyle çalıştırıyoruz.
-                Value result = jsFunction.execute(a, b);
-                
-                // JavaScript'ten dönen sonuç bir sayı mı yoksa bir dizi mi diye kontrol ediyoruz.
-                if (result.isNumber()) {
-                    return Set.of(result.asInt());
-                } else if (result.hasArrayElements()) {
+                try {
+                    // JavaScript fonksiyonunu 'a' ve 'b' değerleriyle çalıştırıyoruz.
+                    Value result = jsFunction.execute(a, b);
                     Set<Integer> resultSet = new HashSet<>();
-                    for (int i = 0; i < result.getArraySize(); i++) {
-                        resultSet.add(result.getArrayElement(i).asInt());
+
+                    // JavaScript'ten dönen sonuç bir sayı mı, dizi mi, yoksa başka bir şey mi?
+                    if (result.isNumber()) {
+                        // Eğer sonuç tek bir sayı ise (örn: "a+b"), onu tek elemanlı bir kümeye koy.
+                        resultSet.add(result.asInt());
+                    } else if (result.hasArrayElements()) {
+                        // Eğer sonuç bir dizi ise (örn: "[2*a*b, 3*a*b]"), tüm elemanlarını kümeye ekle.
+                        for (int i = 0; i < result.getArraySize(); i++) {
+                            Value element = result.getArrayElement(i);
+                            if (element.isNumber()) {
+                                resultSet.add(element.asInt());
+                            }
+                        }
                     }
+                    // Eğer yukarıdakilerden hiçbiri değilse (veya tanımsızsa), boş küme döndür.
                     return resultSet;
+
+                } catch (Exception e) {
+                    // JavaScript kodunda bir hata oluşursa (örn: syntax hatası),
+                    // hatayı konsola yazdır ve boş bir küme döndür.
+                    System.err.println("Error executing JavaScript rule for a=" + a + ", b=" + b + ": " + e.getMessage());
+                    return new HashSet<>();
                 }
-                // Eğer sonuç anlaşılamazsa boş küme döndür.
-                return new HashSet<>();
             };
         } catch (Exception e) {
             System.err.println("Error parsing rule '" + ruleString + "': " + e.getMessage());
@@ -53,3 +65,4 @@ public class RuleParserService {
         }
     }
 }
+

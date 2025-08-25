@@ -11,8 +11,7 @@ import com.fasterxml.jackson.databind.JsonNode; // Jackson kütüphanesini impor
 public class GeminiSuggestionService {
 
     // --- ÇOK ÖNEMLİ: API ANAHTARINI GÜVENLİ YÖNETME ---
-    // GitHub'a GÖNDERMEDEN ÖNCE bu anahtarı silin veya "YOUR_API_KEY" olarak değiştirin!
-    private final String apiKey = "AIzaSyCmMmxLG9t6mfrLLHPHxSJTQZO519F4Oow"; // KENDİ GEMINI API ANAHTARINIZI BURAYA YAPIŞTIRIN
+    private final String apiKey = System.getenv("GEMINI_API_KEY");
     
     private static final String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=";
 

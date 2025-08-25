@@ -4,7 +4,7 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 2px;
     border-bottom: 1px solid #ddd;
     font-family: 'Space Grotesk', sans-serif;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -14,19 +14,21 @@ header .logo h1 {
     font-size: 28px;
     font-weight:bold;
     color: darkblue;
+    /*
     background: linear-gradient(90deg, #1e3a8a, #396ee1);
-    -webkit-background-clip: text;  /* sadece WebKit tabanlı tarayıcılarda (Chrome, Safari, Edge Chromium) çalışır, ama Firefox’ta doğrudan çalışmaz. */
+    -webkit-background-clip: text;  /* sadece WebKit tabanlı tarayıcılarda (Chrome, Safari, Edge Chromium) çalışır, ama Firefox’ta doğrudan çalışmaz. 
     -webkit-text-fill-color: transparent;
-    margin-left: 10px;
+    */
+    margin-left: 50px;
     letter-spacing: 0.5px;
     -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.2);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 header .logo p {
     font-size: 13px;
     color: gray;
-    margin-left: 10px;
+    margin-left: 50px;
     margin-top: -15px;    
 }
 

@@ -14,8 +14,7 @@ body{
 }
 
 .content-section .text {
-    margin-left: 50px;
-    margin-right: 50px;
+    margin: 0 100px;
     flex: 1;
 }
 
@@ -28,4 +27,9 @@ body{
     font-size: 17px;
     line-height: 1.5;
     margin: 0px 0px 50px 45px;
+}
+
+.content-section li{
+    margin-left: 70px;
+    line-height: 1.5;
 }

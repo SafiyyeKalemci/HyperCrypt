@@ -2,6 +2,7 @@
 
 package com.zehrayt.hypercrypt.controller;
 
+import com.zehrayt.hypercrypt.exception.InvalidRuleException; 
 import com.zehrayt.hypercrypt.service.GeminiSuggestionService; 
 import com.zehrayt.hypercrypt.dtos.VerificationResult;
 import com.zehrayt.hypercrypt.verification.AxiomVerifier;
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
+import java.util.Map; 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiFunction;
@@ -45,42 +46,38 @@ public class VerificationController {
      * @param request Kullanıcının girdiği temel küme ve kuralı içeren istek.
      * @return Yapının cebirsel özelliklerini ve AI önerisini içeren detaylı sonuç.
      */
-    @PostMapping("/verify")
-    public VerificationResult verifyStructure(@RequestBody VerificationRequest request) {
 
-        // =======================================================================
-        // Adım 1: Kuralı dinamik bir fonksiyona çevir.
-        // BU KISIM İLERİDE GELİŞTİRİLECEK. ŞİMDİLİK BASİT KURALLARI TANIYOR.
-        // unutmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // =======================================================================
-        BiFunction<Integer, Integer, Set<Integer>> operation = ruleParserService.parseRule(request.rule);
 
-        // =======================================================================
-        // Adım 2: Aksiyom motorunu oluştur ve tüm kontrolleri çalıştır.
-        // =======================================================================
-        AxiomVerifier<Integer> verifier = new AxiomVerifier<>(request.baseSet, operation);
-        VerificationResult result = verifier.verifyAll(); // Tek çağrı ile tüm sonuçları alıyoruz.
+     @PostMapping("/verify")
+    public ResponseEntity<Object> verifyStructure(@RequestBody VerificationRequest request) { // DÖNÜŞ TİPİ DEĞİŞTİ
 
-        // =======================================================================
-        // Adım 3: Sonuç hipergrup değilse, AI önerisi için metin hazırla.
-        // =======================================================================
-        // AI önerisi için Gemini servisini çağırıyoruz.
-        if (!result.isHypergroup()) {
-            String failingAxiom = result.getFailingAxiom() != null ? result.getFailingAxiom() : "belirtilen aksiyomları";
+        try {
+            // Girdi Kontrolü
+            if (request.baseSet == null || request.baseSet.isEmpty()) {
+                throw new InvalidRuleException("Temel küme boş olamaz.");
+            }
+
+            BiFunction<Integer, Integer, Set<Integer>> operation = ruleParserService.parseRule(request.rule);
             
-            // Gemini servisini çağırıyoruz!
-            String suggestionFromAI = suggestionService.getSuggestion(
-                    request.baseSet.toString(), 
-                    request.rule, 
-                    failingAxiom
-            );
+            AxiomVerifier<Integer> verifier = new AxiomVerifier<>(request.baseSet, operation);
+            VerificationResult result = verifier.verifyAll();
+
+            if (!result.isHypergroup()) {
+                String failingAxiom = result.getFailingAxiom() != null ? result.getFailingAxiom() : "belirtilen aksiyomları";
+                String suggestionFromAI = suggestionService.getSuggestion(
+                        request.baseSet.toString(), request.rule, failingAxiom);
+                result.setSuggestion(suggestionFromAI);
+            }
             
-            result.setSuggestion(suggestionFromAI);
+            // Başarılı durumda 200 OK ve sonucu döndür.
+            return ResponseEntity.ok(result);
+
+        } catch (InvalidRuleException e) {
+            // Hatalı kural veya girdi durumunda 400 Bad Request ve hata mesajını döndür.
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            // Beklenmedik diğer tüm sunucu hataları için 500 Internal Server Error döndür.
+            return ResponseEntity.status(500).body(Map.of("error", "Sunucuda beklenmedik bir hata oluştu: " + e.getMessage()));
         }
-
-        // =======================================================================
-        // Adım 4: Detaylı sonuç nesnesini Frontend'e döndür.
-        // =======================================================================
-        return result;
     }
 }

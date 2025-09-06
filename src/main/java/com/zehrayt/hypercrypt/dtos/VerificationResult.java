@@ -8,7 +8,7 @@ public class VerificationResult {
     private String highestStructure; // Ulaşılan en yüksek yapının adı
     private String failingAxiom; // Hatanın olduğu ilk aksiyom
     private String suggestion;
-    private boolean isAssociative;
+    //private boolean isAssociative;
 
     public boolean isHypergroupoid() {
         return isHypergroupoid;
@@ -57,12 +57,15 @@ public class VerificationResult {
     public void setFailingAxiom(String failingAxiom) {
         this.failingAxiom = failingAxiom;
     }
+
+    /* 
     public boolean isAssociative() {
         return isAssociative;
     }
     public void setAssociative(boolean associative) {
         isAssociative = associative;
     }
+    */
 
     public String getSuggestion() {
         return this.suggestion;

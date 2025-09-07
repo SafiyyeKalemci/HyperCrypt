@@ -1,4 +1,6 @@
-
+html, body {
+  overflow-x: hidden; /* sağa kaymayı engeller */
+}
 header{
     background: white;
     display: flex;
@@ -8,6 +10,7 @@ header{
     border-bottom: 1px solid #ddd;
     font-family: 'Space Grotesk', sans-serif;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    
 }
 
 header .logo h1 {
@@ -33,7 +36,7 @@ header .logo h1 a {
 }
 
 .logo h1 a:hover {
-  color: #2563eb;       /* hover rengi, site renklerine uyumlu */
+  color: #2563eb;       
 }
 
 header .logo p {
@@ -53,7 +56,7 @@ header nav ul {
 header nav ul li {
     display: inline-block;
     margin-right: 45px;
-    flex: 1 1 auto;
+   
 }
 
 header nav ul li a {
@@ -62,6 +65,7 @@ header nav ul li a {
     font-size: 18px;
     font-weight: bold;
     transition: color 0.3s ease;
+    
 }
 
 header nav ul li a:hover {
@@ -78,15 +82,17 @@ header nav ul li a:hover {
     background-color: darkblue;
     color:#fff;
     margin-right: 20px;
-    margin-left: -15px;
+    margin-left: -10px;
     padding: 5px 10px;
     border: 0px none;
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease;
- 
+    
 }
 
 .language-switch button:hover{
     background-color: #2563eb;
 }
+
+

@@ -15,29 +15,163 @@
     <link rel="stylesheet" href="../header/header.css" />
     <link rel="stylesheet" href="func.css" />
     <link rel="stylesheet" href="../footer/footer.css" />
-
   </head>
   <body>
     <!--HEADER-->
     <div id="header"></div>
 
-    <section class="content-section">
+    <!--Fonksiyon Hakkında-->
+    <section class="content-section reverse">
       <div class="text">
         <h2>Fonksiyon Hakkında</h2>
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse,
-          ducimus. Maxime iusto quod dolor eius ipsa tempore nesciunt corporis
-          autem non? Inventore soluta fugit reprehenderit cum alias dolorum ea
-          nam.
+          Hiperhalkalar, soyut cebirin önemli bir alanıdır ve klasik toplama ve
+          çarpma işlemlerinden farklı olarak, bir işlem sonucu tek bir eleman
+          yerine bir küme elde edilmesini sağlar.
         </p>
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse,
-          ducimus. Maxime iusto quod dolor eius ipsa tempore nesciunt corporis
-          autem non? Inventore soluta fugit reprehenderit cum alias dolorum ea
-          nam.
+          Fonksiyon, kullanıcıdan alınan küme elemanları ve tanımlı kurallar ile
+          verilen kümenin hiperhalka olup olmadığını test eder. Eğer küme
+          hiperhalka yapısını sağlıyorsa, kullanıcı tarafından girilen kurallara
+          göre işlemler gerçekleştirilir ve sonuçlar tablo halinde ekrana
+          yazdırılır.
+        </p>
+        <p>
+          Sonuç olarak bu fonksiyonun temel amacı, verilen bir kümenin
+          hiperhalka yapısına sahip olup olmadığını test etmek ve eğer
+          hiperhalka ise bu yapı üzerinde tanımlı kuralları uygulayarak
+          sonuçları kullanıcıya sunmaktır. Böylece soyut matematikte yer alan
+          hiperhalka kavramı, bilgisayar ortamında somutlaştırılmış olur.
+          Fonksiyon yalnızca akademik anlamda bir ispat aracı değildir; aynı
+          zamanda kriptografi ve siber güvenlik gibi alanlarda doğrudan
+          kullanılabilecek bir altyapı sunar. Örneğin, hiperhalka yapılarının
+          karmaşık cebirsel özellikleri sayesinde daha güçlü, çözülmesi zor
+          anahtarlar üretilebilir. Bu nedenle fonksiyon, hem matematiksel
+          araştırmalar için bir araç hem de modern güvenlik protokollerinde
+          potansiyel bir bileşen olarak önem taşır.
         </p>
       </div>
     </section>
+
+    <!--Form-->
+    <section class="content-section">
+      <div class="text">
+        <h2>Fonksiyon Kullanımı</h2>
+        <p>
+          Küme elemanlarını ve kuralları girerek hiperhalka testi
+          yapabilirsiniz.
+        </p>
+
+        <div class="form-container">
+          <h3>Hiperhalka Test Aracı(?)</h3>
+          <div class="form-row">
+            <!--Küme Elemanları-->
+            <div class="form-field">
+              <label for="elements">
+                Küme Elemanlarını Gir
+                <span class="tooltip"
+                  >ℹ
+                  <span class="tooltiptext"
+                    >Küme elemanlarını virgülle ayırarak yazın. Örn: 1,2,3,4
+                  </span>
+                </span>
+              </label>
+              <input type="text" id="elements" placeholder="Örn: 1,2,3" />
+            </div>
+
+            <!--Kural-->
+            <div class="form-field">
+              <label for="rule">
+                Kuralları Tanımla
+                <span class="tooltip"
+                  >ℹ
+                  <span class="tooltiptext"
+                    >Kuralları işlem biçiminde yazın. Örn: a*b=c<br />a*c=b</span
+                  >
+                </span>
+              </label>
+
+              <input type="text" id="rules" placeholder="Örn: a*b=a; a*c=b" />
+            </div>
+          </div>
+
+          <!-- Buton -->
+          <button onclick="showResults()">Sonuçları Göster</button>
+        </div>
+      </div>
+
+      <!--Üçgen-->
+      <div class="custom-shape-divider-bottom-1757106152">
+        <svg
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M598.97 114.72L0 0 0 120 1200 120 1200 0 598.97 114.72z"
+            class="shape-fill"
+          ></path>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Sonuçlar  -->
+    <section class="content-section reverse" id="results-section">
+      <div class="text">
+        
+        <div id="result"></div>
+      </div>
+    </section>
+
+    <!-- Örnek Tablo -->
+    <script>
+      function showResults() {
+        // Örnek tablo HTML'si
+        const tableHTML = `
+      <h3>Sonuçlar</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>*</th>
+        <th>a</th>
+        <th>b</th>
+        <th>c</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>a</th>
+        <td>{a*a}</td>
+        <td>{a*b}</td>
+        <td>{a*c}</td>
+      </tr>
+      <tr>
+        <th>b</th>
+        <td>{b*a}</td>
+        <td>{b*b}</td>
+        <td>{b*c}</td>
+      </tr>
+      <tr>
+        <th>c</th>
+        <td>{c*a}</td>
+        <td>{c*b}</td>
+        <td>{c*c}</td>
+      </tr>
+    </tbody>
+  </table>
+    `;
+
+        // Sonucu ekrana yaz
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = tableHTML;
+
+        // Tabloya otomatik kaydır
+        document
+          .getElementById("results-section")
+          .scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    </script>
 
     <!-- Header -->
     <script>

@@ -53,19 +53,80 @@
       </div>
     </section>
 
-    <!--Form-->
     <section class="content-section">
       <div class="text">
         <h2>Fonksiyon Kullanımı</h2>
         <p>
           Küme elemanlarını ve kuralları girerek hiperhalka testi
-          yapabilirsiniz.
+          yapabilirsiniz. Lorem ipsum dolor sit amet, consectetur adipisicing
+          elit. Aliquid atque cupiditate, quisquam rerum fugiat ad iusto odio
+          temporibus laudantium nobis doloribus vitae non sint adipisci
+          molestiae molestias? Hic, assumenda veniam?
         </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid
+          atque cupiditate, quisquam rerum fugiat ad iusto odio temporibus
+          laudantium nobis doloribus vitae non sint adipisci molestiae
+          molestias? Hic, assumenda veniam?
+        </p>
+      </div>
+    </section>
 
-        <div class="form-container">
-          <h3>Hiperhalka Test Aracı(?)</h3>
+    <section class="form-section">
+      <div class="form-container">
+        <h3>Küme Türü Seç</h3>
+        <!-- Küme Tipi Seçimi -->
+        <div class="form-field button-group">
+          <button type="button" id="finiteBtn">Sonlu Küme</button>
+          <button type="button" id="infiniteBtn">Sonsuz Küme</button>
+        </div>
+      </div>
+
+      <div class="set-rule">
+        <!-- Sonsuz küme -->
+        <div class="form-field" id="infinite-set">
+          <label for="infiniteOptions">Küme Seç</label>
+          <select id="infiniteOptions">
+            <option value="Z">Tam sayılar (ℤ)</option>
+            <option value="Q">Rasyonel sayılar (ℚ)</option>
+            <option value="R">Gerçel sayılar (ℝ)</option>
+            <option value="N">Doğal sayılar (ℕ)</option>
+          </select>
+        </div>
+
+        <!-- Sonlu küme -->
+        <div class="form-field" id="finite-set">
+          <label for="elements"
+            >Küme Elemanlarını Gir
+            <span class="tooltip"
+              >ℹ
+              <span class="tooltiptext">
+                Küme elemanlarını virgülle ayırarak yazın. <br />
+                Örn: 1,2,3,4
+              </span>
+            </span></label
+          >
+          <input type="text" id="elements" placeholder="Örn: 1,2,3" />
+        </div>
+
+        <!-- Ortak kural kısmı -->
+        <div class="form-field">
+          <label for="rules"
+            >Kuralları Tanımla
+            <span class="tooltip"
+              >ℹ
+              <span class="tooltiptext">
+                Kuralları işlem biçiminde yazın. <br />
+                Örn: a*b=a; a*c=b
+              </span>
+            </span></label
+          >
+          <input type="text" id="rules" placeholder="Örn: a*b=a; a*c=b" />
+        </div>
+
+        <!--
           <div class="form-row">
-            <!--Küme Elemanları-->
+            Küme Elemanları 
             <div class="form-field">
               <label for="elements">
                 Küme Elemanlarını Gir
@@ -79,7 +140,7 @@
               <input type="text" id="elements" placeholder="Örn: 1,2,3" />
             </div>
 
-            <!--Kural-->
+            Kural
             <div class="form-field">
               <label for="rule">
                 Kuralları Tanımla
@@ -95,10 +156,11 @@
             </div>
           </div>
 
-          <!-- Buton -->
+          Buton 
           <button onclick="showResults()">Sonuçları Göster</button>
-        </div>
+          -->
       </div>
+      <button id="showResult" onclick="showResults()">Sonuçları Göster</button>
 
       <!--Üçgen-->
       <div class="custom-shape-divider-bottom-1757106152">
@@ -119,12 +181,22 @@
     <!-- Sonuçlar  -->
     <section class="content-section reverse" id="results-section">
       <div class="text">
-        
         <div id="result"></div>
+        <div class="results-extras">
+          <div id="structure-tests" class="tests"></div>
+
+          <div id="ai-assistant" class="ai-box">
+            <div class="ai-header">
+              <h4>Yapay Zeka</h4>
+              <span class="ai-badge">Öneri</span>
+            </div>
+            <p id="ai-message" class="ai-body"></p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Örnek Tablo -->
+    <!-- Örnek Tablo 
     <script>
       function showResults() {
         // Örnek tablo HTML'si
@@ -172,6 +244,7 @@
           .scrollIntoView({ behavior: "smooth", block: "start" });
       }
     </script>
+    -->
 
     <!-- Header -->
     <script>
@@ -194,5 +267,6 @@
         })
         .catch((error) => console.error("Footer yüklenemedi:", error));
     </script>
+    <script src="func.js"></script>
   </body>
 </html>

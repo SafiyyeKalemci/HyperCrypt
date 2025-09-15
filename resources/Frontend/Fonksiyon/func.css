@@ -10,7 +10,7 @@ body {
   justify-content: space-between;
   gap: 20px;
   background: rgb(230, 248, 255);
-  padding: 0 0 50px;
+  
 }
 
 .content-section.reverse {
@@ -262,6 +262,7 @@ td {
   align-items: flex-start;
   margin-top: 20px;
   flex-wrap: wrap; /* küçük ekranlarda alt alta düşsün diye */
+  justify-content: center;
 }
 
 /* Ortak kart stili */
@@ -272,7 +273,7 @@ td {
   box-shadow: 0 6px 16px rgba(0,0,0,0.08);
   padding: 18px;
   border: 1px solid rgba(0,0,0,0.08);
-  flex: 1 1 300px; /* genişlik ayarı */
+  flex: 0 1 500px; /* genişlik ayarı */
   min-width: 260px;
 }
 
@@ -302,7 +303,7 @@ td {
   font-size: 14px;
 }
 
-/* true/false için renkli baloncuk */
+/* true-false için renkli baloncuk */
 .pill {
   padding: 4px 8px;
   border-radius: 999px;

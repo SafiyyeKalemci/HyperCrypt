@@ -25,7 +25,7 @@ finiteBtn.classList.add("active");
 
 function showResults() {
   // Diyelim ki kullanıcı şu elemanları girdi
-  const elements = ["a", "b", "c"];  
+  const elements = ["a", "b", "c"];
 
   // Tablo başlığı
   let tableHTML = `
@@ -34,16 +34,16 @@ function showResults() {
       <thead>
         <tr>
           <th>*</th>
-          ${elements.map(el => `<th>${el}</th>`).join("")}
+          ${elements.map((el) => `<th>${el}</th>`).join("")}
         </tr>
       </thead>
       <tbody>
   `;
 
   // Satırlar
-  elements.forEach(rowEl => {
+  elements.forEach((rowEl) => {
     tableHTML += `<tr><th>${rowEl}</th>`;
-    elements.forEach(colEl => {
+    elements.forEach((colEl) => {
       tableHTML += `<td>{${rowEl}*${colEl}}</td>`; // burada backend’den gelen gerçek sonuç yazılacak
     });
     tableHTML += `</tr>`;
@@ -60,19 +60,44 @@ function showResults() {
       semihypergroup: true,
       hypergroupoid: true,
       quasihypergroup: false,
-      hypergroup: true
+      hypergroup: true,
     },
-    isHypergroup: true // bu 6. adım için lazım
+    isHypergroup: true, // bu 6. adım için lazım
   };
 
   let testsHTML = `
-    <h4>Yapı Testleri</h4>
     <p><b>Highest Structure:</b> ${backendResponse.highestStructure}</p>
     <ul>
-      <li>Semihypergroup: ${backendResponse.tests.semihypergroup}</li>
-      <li>Hypergroupoid: ${backendResponse.tests.hypergroupoid}</li>
-      <li>Quasihypergroup: ${backendResponse.tests.quasihypergroup}</li>
-      <li>Hypergroup: ${backendResponse.tests.hypergroup}</li>
+      <li>
+      <span>Semihypergroup</span>
+      <span class="pill ${
+        backendResponse.tests.semihypergroup ? "true" : "false"
+      }">
+        ${backendResponse.tests.semihypergroup}
+      </span>
+    </li>
+    <li>
+      <span>Hypergroupoid</span>
+      <span class="pill ${
+        backendResponse.tests.hypergroupoid ? "true" : "false"
+      }">
+        ${backendResponse.tests.hypergroupoid}
+      </span>
+    </li>
+    <li>
+      <span>Quasihypergroup</span>
+      <span class="pill ${
+        backendResponse.tests.quasihypergroup ? "true" : "false"
+      }">
+        ${backendResponse.tests.quasihypergroup}
+      </span>
+    </li>
+    <li>
+      <span>Hypergroup</span>
+      <span class="pill ${backendResponse.tests.hypergroup ? "true" : "false"}">
+        ${backendResponse.tests.hypergroup}
+      </span>
+    </li>
     </ul>
   `;
 
@@ -90,8 +115,9 @@ function showResults() {
 
 function showAIAssistant() {
   // Backend’den gelen yapay zeka mesajını alacağız, örnek:
-  const aiMessage = "Bu küme hypergroup değil çünkü kapalı değil. Ancak semihypergroup özellikleri gösteriyor.";
-  
+  const aiMessage =
+    "Bu küme hypergroup değil çünkü kapalı değil. Ancak semihypergroup özellikleri gösteriyor.";
+
   document.getElementById("ai-message").innerText = aiMessage;
   document.getElementById("ai-assistant").style.display = "block";
 }

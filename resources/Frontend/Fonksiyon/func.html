@@ -19,25 +19,11 @@
   <body>
     <!--HEADER-->
     <div id="header"></div>
-
-    <!--Fonksiyon Hakkında-->
-    <section class="content-section reverse">
+ 
+<!--Fonksiyon Hakkında-->
+    <section class="content-section" >
       <div class="text">
         <h2>Fonksiyon Kullanımı</h2>
-        <p>
-         Küme elemanlarını ve kuralları girerek hiperhalka testi
-          yapabilirsiniz. Lorem ipsum dolor sit amet, consectetur adipisicing
-          elit. Aliquid atque cupiditate, quisquam rerum fugiat ad iusto odio
-          temporibus laudantium nobis doloribus vitae non sint adipisci
-          molestiae molestias? Hic, assumenda veniam?
-        </p>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque reprehenderit consectetur a quasi! Modi, quasi minus sapiente ipsum soluta quia eveniet aspernatur vitae quae, nulla laboriosam ipsam reprehenderit fugit autem!</p>
-      </div>
-    </section>
-
-    <section class="content-section">
-      <div class="text">
-        <h2>Sonlu Küme</h2>
         <p>
           Küme elemanlarını ve kuralları girerek hiperhalka testi
           yapabilirsiniz. Lorem ipsum dolor sit amet, consectetur adipisicing
@@ -45,16 +31,11 @@
           temporibus laudantium nobis doloribus vitae non sint adipisci
           molestiae molestias? Hic, assumenda veniam?
         </p>
-        
-
-        <h2>Sonsuz Küme</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid
-          atque cupiditate, quisquam rerum fugiat ad iusto odio temporibus
-          laudantium nobis doloribus vitae non sint adipisci molestiae
-          molestias? Hic, assumenda veniam?
-        </p>
+        <button type="button" id="usageGuideBtn" class="usage-guide-btn">
+          Örneklere Git
+        </button>
       </div>
+      
     </section>
 
     <section class="form-section">
@@ -92,7 +73,7 @@
             </span></label
           >
           <input type="text" id="elements" placeholder="Örn: 1,2,3" />
-        </div>
+        </div>     
 
         <!-- Ortak kural kısmı -->
         <div class="form-field">
@@ -108,42 +89,6 @@
           >
           <input type="text" id="rules" placeholder="Örn: a*b=a; a*c=b" />
         </div>
-
-        <!--
-          <div class="form-row">
-            Küme Elemanları 
-            <div class="form-field">
-              <label for="elements">
-                Küme Elemanlarını Gir
-                <span class="tooltip"
-                  >ℹ
-                  <span class="tooltiptext"
-                    >Küme elemanlarını virgülle ayırarak yazın. Örn: 1,2,3,4
-                  </span>
-                </span>
-              </label>
-              <input type="text" id="elements" placeholder="Örn: 1,2,3" />
-            </div>
-
-            Kural
-            <div class="form-field">
-              <label for="rule">
-                Kuralları Tanımla
-                <span class="tooltip"
-                  >ℹ
-                  <span class="tooltiptext"
-                    >Kuralları işlem biçiminde yazın. Örn: a*b=c<br />a*c=b</span
-                  >
-                </span>
-              </label>
-
-              <input type="text" id="rules" placeholder="Örn: a*b=a; a*c=b" />
-            </div>
-          </div>
-
-          Buton 
-          <button onclick="showResults()">Sonuçları Göster</button>
-          -->
       </div>
       <button id="showResult" onclick="showResults()">Sonuçları Göster</button>
 
@@ -170,7 +115,7 @@
         <div class="results-extras">
           <div id="structure-tests" class="tests"></div>
 
-          <div id="ai-assistant" class="ai-box" style="display:none;">
+          <div id="ai-assistant" class="ai-box" style="display: none">
             <div class="ai-header">
               <h4>Yapay Zeka</h4>
               <span class="ai-badge">Öneri</span>
@@ -181,6 +126,50 @@
       </div>
     </section>
 
+    <section class="content-section" id="usage-guide">
+      <div class="text">
+        <h2>Sonlu Küme</h2>
+        <p>
+          Küme elemanlarını ve kuralları girerek hiperhalka testi
+          yapabilirsiniz. Lorem ipsum dolor sit amet, consectetur adipisicing
+          elit. Aliquid atque cupiditate, quisquam rerum fugiat ad iusto odio
+          temporibus laudantium nobis doloribus vitae non sint adipisci
+          molestiae molestias? Hic, assumenda veniam?
+        </p>
+
+        <h2>Sonsuz Küme</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid
+          atque cupiditate, quisquam rerum fugiat ad iusto odio temporibus
+          laudantium nobis doloribus vitae non sint adipisci molestiae
+          molestias? Hic, assumenda veniam?
+        </p>
+      </div>
+      <!-- Örnekler Tab Alanı -->
+      <div class="examples-section">
+        <h3>Örnekler</h3>
+
+        <!-- Tab Butonları -->
+        <div class="example-tabs">
+          <button class="tab-btn active" data-tab="finite1">Sonlu 1</button>
+          <button class="tab-btn" data-tab="finite2">Sonlu 2</button>
+          <button class="tab-btn" data-tab="finite3">Sonlu 3</button>
+          <button class="tab-btn" data-tab="infinite1">Sonsuz 1</button>
+          <button class="tab-btn" data-tab="infinite2">Sonsuz 2</button>
+        </div>
+
+        <!-- Tab İçerikleri -->
+        <div class="tab-content active" id="finite1"></div>
+
+        <div class="tab-content" id="finite2"></div>
+
+        <div class="tab-content" id="finite3"></div>
+
+        <div class="tab-content" id="infinite1"></div>
+
+        <div class="tab-content" id="infinite2"></div>
+      </div>
+    </section>
 
     <!-- Header -->
     <script>

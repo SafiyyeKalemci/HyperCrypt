@@ -3,6 +3,102 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(90deg, #184a6e, #287db1, #4da8da);
+  color: white;
+  padding: 50px 0 30px 50px;
+  display: flex;
+  position: relative;
+  gap: 10px;
+  align-items: center;
+}
+
+.hero-section .text {
+  max-width: 800px;
+  margin-left: 100px;
+}
+
+.hero-section h1 {
+  margin: 0 0 30px 0;
+  font-weight: bold;
+  font-size: 2.5rem;
+}
+
+.hero-section h3 {
+  color: rgba(255, 255, 255, 0.833);
+  margin: 0 0 20px 0;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.hero-section p {
+  font-size: 17px;
+  line-height: 1.6;
+  margin: 20px 0;
+}
+
+/* Hero Buttons Container */
+.hero-buttons {
+  display: flex;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-buttons .btn {
+  padding: 15px 15px;
+  background: linear-gradient(135deg, #4da8da, #8a6be1);
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 17px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  margin: 30px 100px 0 0;
+}
+
+.hero-buttons .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(135deg, #8a6be1, #4da8da);
+}
+
+.hero-section dotlottie-wc {
+  width: 2000px;
+  height: 350px;
+  object-fit: fill;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .hero-section .text {
+    margin-right: 0;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .hero-section h1,
+  .hero-section h3,
+  .hero-section p {
+    text-align: center;
+  }
+
+  .hero-section dotlottie-wc {
+    max-width: 200px;
+    max-height: 200px;
+  }
+}
 .content-section {
   display: flex;
   align-items: center;
@@ -10,21 +106,12 @@ body {
   margin-bottom: 50px;
   position: relative;
   padding: 0 50px;
-  
 }
 
-.content-section:first-of-type {
-  /* sadece ilk section için */
-  margin-bottom: -15px;
-  background: linear-gradient(to right, #184a6e, #287db1);
-  color: white;
-  padding-top: 30px;
-}
 
 .content-section.reverse {
   background-color: rgb(230, 248, 255);
   padding: 80px 50px 50px; /* üst 80px, yanlar 50px, alt 50px */
-  
 }
 
 .content-section .text {
@@ -37,7 +124,13 @@ body {
   margin-right: 0px;
   flex: 1;
 }
-
+.title-underline {
+  width: 90px;
+  height: 4px;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  margin: 0 auto;
+  border-radius: 2px;
+}
 .content-section .image {
   flex: 1;
   display: flex;
@@ -60,18 +153,19 @@ body {
 }
 
 .content-section .image .table {
-   max-width: 70%;
+  max-width: 70%;
 }
 
 .content-section h2 {
   font-size: 23px;
-  margin: 50px 0px 25px 25px;
+  margin: 50px 0px 10px 25px;
+  text-align: center;
 }
 
 .content-section p {
   font-size: 17px;
   line-height: 1.5;
-  margin: 0px 0px 50px 45px;
+  margin: 20px 0px 50px 45px;
   position: relative;
 }
 
@@ -83,6 +177,11 @@ body {
   width: 100%;
   overflow: hidden;
   line-height: 0;
+  background: linear-gradient(90deg, #184a6e, #287db1, #4da8da);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'><path d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='white'/></svg>")
+    bottom/100% 100% no-repeat;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'><path d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='white'/></svg>")
+    bottom/100% 100% no-repeat;
 }
 
 .custom-shape-divider-top-1756072994 svg {
@@ -93,30 +192,57 @@ body {
   transform: rotateY(180deg);
 }
 
-/*Fonksiyonu dene butonu*/
+/*Buton tasarımı*/
 .btn {
   display: block;
-   width: fit-content; 
-  margin: 0 auto 50px;
-  padding: 15px 15px;
-  border-radius: 5px;
-  background: darkblue;
+  width: fit-content;
+  margin: 40px auto 0 auto;
+  padding: 13px 15px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #664caf, #8a6be1);
   color: #fff;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
-  transition: background 0.3s ease;
 }
 
+/* Parlama efekti */
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+/* Hover efekti */
 .btn:hover {
-  background: #2563eb;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(102, 76, 175, 0.3);
 }
 
 /*Hakkımızda Özet*/
-
 .about-section {
   background: rgb(230, 248, 255);
   width: 100%;
-  padding: 50px 0 150px; /* üst 40px, alt 150px */
+  padding: 50px 0 150px;
 }
 
 .about-preview {
@@ -128,16 +254,21 @@ body {
 }
 
 .about-header {
-  display: flex;
-  align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 7px;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
 .about-header h2 {
   font-size: 25px;
   font-weight: bold;
-  
+  margin-bottom: 10px;
+}
+
+.about-header p {
+  font-size: 18px;
+  color: #64748b;
+  margin-top: 15px;
 }
 
 .about-cards {
@@ -147,8 +278,8 @@ body {
 }
 
 .card {
-  width: 330px;     /* eski 260px yerine küçültüldü */
-  height: 200px;   
+  width: 330px;
+  height: 200px;
   perspective: 1000px;
   background: none;
   border-radius: 12px;
@@ -201,11 +332,15 @@ body {
   position: relative;
 }
 
-.card-back h3 {
-  font-size: large;
+.card-back h2 {
+  font-size: 20px;
   margin-top: 40px;
   text-align: center;
-  position: absolute;
+}
+
+.card-back p {
+  font-size: 17px;
+  margin: 0;
 }
 
 .icons {

@@ -8,14 +8,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
   background: rgb(230, 248, 255);
-  
+  padding: 20px 0 20px 0;
 }
 
 .content-section.reverse {
-  background: white;
-  margin-top: 20px;
+  background: rgb(230, 248, 255);
+  margin-top: 50px;
+  padding: 20px 0;
 }
 
 .content-section .text {
@@ -25,7 +25,7 @@ body {
 
 .content-section h2 {
   font-size: 23px;
-  margin: 50px 0 25px 25px;
+  margin: 25px 0 25px 25px;
 }
 
 .content-section p {
@@ -34,11 +34,71 @@ body {
   margin: 00 50px 45px;
 }
 
+/*Örnekler Tab Alanı*/
+.examples-section {
+  margin: 20px 50px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fafafa;
+  max-width: 800px;
+}
+.examples-section h3 {
+  text-align: center;
+}
+/* Tab Butonları*/
+.example-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.tab-btn {
+  padding: 6px 12px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.tab-btn.active {
+  background: #664caf;
+  color: #fff;
+}
+
+/* Tab İçerikleri*/
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+.tab-content p {
+  margin: 4px 0;
+}
+.tab-content table {
+  margin-top: 10px;
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+}
+
+.tab-content table th,
+.tab-content table td {
+  border: 1px solid #ddd;
+  padding: 6px;
+}
+
 /*Form kısmı*/
 .form-section {
   background: linear-gradient(to bottom, #ffffff 25%, rgb(230, 248, 255) 100%);
   position: relative;
-  padding: 50px 0;
+  padding-bottom: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,15 +114,14 @@ body {
 
 .set-rule {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: flex-start;
-  gap: 50px; 
+  gap: 50px;
   margin-top: 20px;
 }
 
 .set-rule label {
   font-weight: 500;
-  
 }
 
 .set-rule .form-field {
@@ -72,44 +131,13 @@ body {
 .form-container h3 {
   text-align: center;
   margin-top: 30px;
-  margin-bottom: 25px;
+  font-size: 23px;
 }
-/*
-.form-row {
-  display: flex;
-  justify-content: center;
-  gap: 200px;
-  margin-top: 15px;
-}
-
-.form-field {
-  /*flex: 1;   
-  width: 350px;
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  display: block;
-  margin-top: 15px;
-}
-
-input,
-textarea {
-  width: 100%;
-  padding: 10px;
-  margin-top: 6px;
-  border: 1px solid #cccccc;
-  border-radius: 8px;
-  font-size: 14px;
-}
-*/
-
 
 .form-section button {
   display: block;
   margin: 40px auto 0 auto;
-  padding: 10px 15px;
+  padding: 13px 15px;
   border: none;
   background: #664caf;
   color: white;
@@ -118,22 +146,54 @@ textarea {
   font-size: 16px;
   transition: 0.2s ease;
 }
-/*bu butonları düzenlemen lazım!!*/
-#showResult{
-  margin-top: 70px;
-}
 
 .form-section button:hover {
   background: #574096;
 }
+/*bu butonları düzenlemen lazım!!*/
+#showResult {
+  margin-top: 70px;
+}
+
+/* Fonksiyon Kullanımı Butonu */
+.content-section .usage-guide-btn {
+  display: block; /* ortalamak için */
+  margin: 20px auto; /* yatayda ortalama */
+  padding: 13px 15px;
+  border: 2px solid #664caf;
+  border-radius: 8px;
+  background: linear-gradient(120deg, #574096, #7a5bc7);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+
+  box-shadow: 0 4px 12px rgba(102, 76, 175, 0.3);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.content-section .usage-guide-btn:hover {
+  background: linear-gradient(235deg, #574096, #7a5bc7);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 76, 175, 0.4);
+}
+
+.content-section .usage-guide-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(102, 76, 175, 0.3);
+}
+
+.content-section .usage-guide-btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(102, 76, 175, 0.18);
+}
 
 /* Küme türü seçimi */
-
-
 .form-field label {
   margin-top: 10px;
   font-weight: 600;
-  
 }
 
 input,
@@ -192,8 +252,9 @@ textarea {
 
 /*örnek-tablo*/
 #results-section {
-  padding: 50px 0;
+  padding: 10px 0 50px 0;
   background: #fdfdfd;
+  display: none;
 }
 
 #result h3 {
@@ -263,16 +324,17 @@ td {
   margin-top: 20px;
   flex-wrap: wrap; /* küçük ekranlarda alt alta düşsün diye */
   justify-content: center;
+  max-height: 300px;
 }
 
 /* Ortak kart stili */
-.tests, 
+.tests,
 .ai-box {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
   padding: 18px;
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   flex: 0 1 500px; /* genişlik ayarı */
   min-width: 260px;
 }
@@ -299,7 +361,7 @@ td {
   justify-content: space-between;
   padding: 8px 12px;
   border-radius: 8px;
-  background: rgba(0,0,0,0.04);
+  background: rgba(0, 0, 0, 0.04);
   font-size: 14px;
 }
 
@@ -311,11 +373,11 @@ td {
   font-weight: 600;
 }
 .pill.true {
-  background: rgba(52,199,89,0.15);
+  background: rgba(52, 199, 89, 0.15);
   color: #2ecc71;
 }
 .pill.false {
-  background: rgba(255,59,48,0.15);
+  background: rgba(255, 59, 48, 0.15);
   color: #e74c3c;
 }
 
@@ -333,7 +395,7 @@ td {
 }
 .ai-badge {
   font-size: 12px;
-  background: rgba(107,80,255,0.12);
+  background: rgba(107, 80, 255, 0.12);
   color: #4b2bd6;
   padding: 4px 8px;
   border-radius: 999px;

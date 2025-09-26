@@ -1,166 +1,187 @@
 <!DOCTYPE html>
 <html lang="tr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hiperhalka Nedir?</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hiperhalka Nedir?</title>
 
-    <link rel="stylesheet" href="../header/header.css" />
-    <link rel="stylesheet" href="hiperhalka.css" />
-    <link rel="stylesheet" href="../footer/footer.css" />
-  </head>
-  <body>
-    <!--HEADER-->
-    <div id="header"></div>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet" />
 
-    <section class="content-section">
-      <div class="text">
-        <h2>Hiperhalkalar Nedir?</h2>
-        <p>
-          Hiperhalkalar, ilk olarak 1934 yılında Marty tarafından tanımlanmış ve
-          matematikte geniş bir uygulama alanına sahip bir konudur. Bu yapı hem
-          pür Matematikte hem de uygulamalı Matematikte geniş bir uygulama
-          alanına sahiptir. Hiperhalkaların temel bir örneği olan hipergruplar
-          boş kümeden farklı bir H kümesinin kendisi ile işleme sokulması
-          sonucunda, <em>ο ∶ H × H → P*(H)</em> olarak ifade edilen ve
-          <em>H</em>’nin boştan farklı alt kümelerinden oluşan <em>P(H)</em>‘a
-          giden birleşim özelliğini sağlayan bir yapıdır. Kanonik hipergruplar
-          ise Marty tarafından tanımlanan özel bir hipergruptur.
-        </p>
-        <p>
-          3 farklı türde hiperhalka tanımı yapılmıştır. Eğer sadece toplama “ +
-          “ bir hiperişlem ve çarpma klasik çarpım işlemi ise R toplamsal bir
-          hiperhalka olarak adlandırılır. Bu hiperhalka türünün özel bir çeşidi,
-          Krasner tarafından 1957 yılında tanımlanmıştır. Krasner aynı zamanda
-          1983 yılında hipercisim ve bölüm hiperhalkalarını tanımlamıştır. Diğer
-          yandan, eğer sadece çarpım hiperişlem ise bu hiperhalka türüne
-          çarpımsal hiperhalka denir. Çarpımsal hiperhalkalar 1982 yılında Rota
-          tarafından tanımlanmıştır. Sonrasında bu alanda Nakassis (1988), Olson
-          ve Ward (1997), Procesi ve Rota (1999) gibi birçok bilim insanı da
-          çalışmalar yapmıştır. Son yıllarda cebirsel hiperyapılar, birçok
-          matematikçi tarafından yoğun olarak araştırılmaya devam etmektedir.
-          <br />Son 15 yılda hiper yapıların geometri, hiper grafikler, bulanık
-          kümeler, kaba kümeler, otomata teorisi, kriptografi, ilişki cebirleri,
-          kombinatorik, yapay zekâ ve olasılıklar gibi birçok farklı alanda
-          kullanım alanı bulunduğu görülmektedir (Corsini & Leoreanu, 2003).
-        </p>
-        <h2>Hiperhalka Tanımı(?)</h2>
-        <p>
-          <em>R ≠ Ø</em> kümesi üzerinde tanımlı iki ikili işlem " +" ve "."
-          olsun. <em>(R, +, .)</em> cebirsel yapısı eğer aşağıdaki koşulları
-          sağlarsa halka olarak adlandırılır:
-          <br />
-          <br />(1) <em>(R, +)</em> bir değişmeli gruptur. <br />(2) "."
-          işleminin R de birleşme özelliği vardır. <br />(3) "." işleminin "+"
-          işlemi üzerinde sağdan ve soldan dağılma özelliği vardır:
-          <em>∀ a,b,c ∈ R</em> için, <em>a(b + c) = ab + ac</em> ve
-          <em>(a + b)c = ac + bc</em>
-          <br />
-          <br />Halkanın "+" işlemine göre etkisiz elemanına halkanın
-          <strong>sıfır elemanı</strong> denir ve 0<small>R</small> ile
-          gösterilir. Halkanın "." işlemine göre etkisiz elemanı olmayabilir.
-          Eğer ikinci işleme göre de etkisiz elemanı varsa bu elemana halkanın
-          <strong>birim elemanı</strong> denir ve 1<small>R</small> ile
-          gösterilir. Böyle bir halkaya da <strong>birimli halka</strong> denir.
-          Ayrıca halka ikinci işleme göre değişme özelliğine sahip ise halkaya
-          <strong>değişmeli halka</strong> denir.
-        </p>
-        <h2>Çarpımsal Hiperhalkalar</h2>
-        <p>
-          Bu projede öncelikli olarak hipergrup yapıları ve bunların çarpma
-          işlemi üzerine odaklanılacaktır. Hipergrup/çarpımsal hiperhalka tanımı
-          şu şekildedir;
-          <li>
-            H kümesi, <em>ο</em> (iki elemanlı bir çiftten H kümesine alt küme
-            gönderen) adlı bir hiperoperasyona sahip olduğunda, buna
-            <strong>hipergrupoid</strong> denir.
-          </li>
-          <li>
-            Bir hipergrupoid, eğer işlem belirli bir şekilde birleşimsel ise,
-            yani <em>(a ο b) ο c = a ο (b ο c)</em> ise, buna
-            <strong>semihipergrup</strong> denir.
-          </li>
-          <li>
-            Bir hipergrupoid, eğer her <em>a∈H</em> için
-            <em>a ο H = H ο a = H</em> ise, buna
-            <strong>kuasihipergrup</strong> denir. Bu koşul üretim aksiyomu
-            olarak bilinir.
-          </li>
-          <li>
-            Bir hipergrupoid, hem semihipergrup hem de kuasihipergrup ise, buna
-            <strong>kuasihipergrup</strong>hipergrup denir. (F. Marty, 1934,
-            45-49)
-          </li>
-        </p>
-        <h2>Hiperhalka Kullanım Alanları - Kriptografi</h2>
-        <p>
-          Hiperhalka teorisi, klasik halka ve grup yapılarından daha karmaşık
-          yapılar sunduğundan kriptografi alanında önemli avantajlar sağlar.
-          Hiperhalka yapıları, anahtar oluşturma ve veri şifreleme süreçlerinde
-          klasik halka yapılarına göre daha geniş bir işlem kümesi sunar. Bu
-          özellik, benzersiz ve tahmin edilmesi zor anahtarlar üretilmesine
-          imkân tanır. Böylece brute-force veya tahmin tabanlı saldırılara karşı
-          sistemlerin dayanıklılığını artırır.
-        </p>
+  <link rel="stylesheet" href="../header/header.css" />
+  <link rel="stylesheet" href="hiperhalka.css" />
+  <link rel="stylesheet" href="../footer/footer.css" />
 
-        <p>
-          Hiperhalka aritmetiği, anahtarların belirli matematiksel ilişkiler
-          üzerinden birbirine bağlı şekilde üretilmesini mümkün kılar. Bu durum,
-          dışarıdan müdahaleyi zorlaştırır. Ayrıca, hiperhalka yapılarının
-          sunduğu non-lineer dönüşümler, veri şifreleme sırasında desen
-          analizini zorlaştırır ve böylece veri güvenliğini artırır.
-        </p>
-        <p>
-          Hiperhalka yapıları, Diffie-Hellman gibi anahtar değişim
-          protokollerine entegre edildiğinde tahmin tabanlı ve man-in-the-middle
-          saldırılarına karşı ek güvenlik katmanı oluşturur. Bu yapılar aynı
-          zamanda dinamik anahtar üretimi sayesinde VPN ve SSL gibi
-          protokollerde esneklik sağlar.
-        </p>
-        <p>
-          Şifreleme dışında, veri bütünlüğünü koruma ve sayısal imza üretme
-          süreçlerinde de hiperhalka tabanlı yöntemler kullanılabilir. Böylece
-          hem verilerin gizliliği hem de değiştirilip değiştirilmediği güvence
-          altına alınır. Hiperhalka yapılarının sunduğu bu cebirsel karmaşıklık,
-          şifreleme sistemlerinin çözülmesini zorlaştırır.
-        </p>
-        <p>
-          Sonuç olarak, hiperhalka yapıları kriptografide hem güvenliği artıran
-          hem de sisteme esneklik katan bir araç olarak öne çıkar. Anahtar
-          çeşitliliği, non-lineer dönüşümler, dinamik üretim ve veri bütünlüğü
-          doğrulama özellikleri sayesinde, hiperhalka tabanlı sistemler modern
-          güvenlik protokollerinde önemli bir avantaj sağlar.
-        </p>
-      </div>
-    </section>
+  <!--MathJax-->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
 
-    <!-- Header -->
-    <script>
-      fetch("../header/header.html")
-        .then((response) => response.text())
-        .then((data) => {
-          document.getElementById("header").innerHTML = data;
-        })
-        .catch((error) => console.error("Header yüklenemedi:", error));
-    </script>
+<body>
+  <!--HEADER-->
+  <div id="header"></div>
+  <!--
+    <section class="hyper-layout">
+      <aside class="toc">
+        <h4>İçindekiler</h4>
+        <a href="#nedir">Hiperhalkalar Nedir?</a>
+        <a href="#tanim">Hiperhalka Tanımı</a>
+        <a href="#carpimsal">Çarpımsal Hiperhalkalar</a>
+        <a href="#kriptografi">Kullanım Alanları</a>
+      </aside>
 
-    <!-- Footer -->
-    <div id="footer"></div>
+      <div class="content">
+        <header class="hyper-hero">
+          <h1>Hiperhalkalar</h1>
+          <p>Temel kavramlar, tanımlar ve kriptografi uygulamaları</p>
+        </header>
+        -->
 
-    <script>
-      fetch("../footer/footer.html")
-        .then((response) => response.text())
-        .then((data) => {
-          document.getElementById("footer").innerHTML = data;
-        })
-        .catch((error) => console.error("Footer yüklenemedi:", error));
-    </script>
-  </body>
+  <section class="content-section">
+    <div class="text">
+      <h2 class="nedir">Hiperhalkalar Nedir?</h2>
+      <p>
+        Hiperhalkalar, ilk olarak 1934 yılında Marty tarafından tanımlanmış ve
+        matematikte geniş bir uygulama alanına sahip bir konudur. Bu yapı hem
+        pür Matematikte hem de uygulamalı Matematikte geniş bir uygulama
+        alanına sahiptir. Hiperhalkaların temel bir örneği olan hipergruplar
+        boş kümeden farklı bir H kümesinin kendisi ile işleme sokulması
+        sonucunda, \( ο \colon H \times H \to P^{*}(H) \) olarak ifade edilen ve
+        <em>H</em>’nin boştan farklı alt kümelerinden oluşan <em>P(H)</em>‘a
+        giden birleşim özelliğini sağlayan bir yapıdır. Kanonik hipergruplar
+        ise Marty tarafından tanımlanan özel bir hipergruptur.
+      </p>
+      <p>
+        3 farklı türde hiperhalka tanımı yapılmıştır. Eğer sadece toplama “ +
+        “ bir hiperişlem ve çarpma klasik çarpım işlemi ise R toplamsal bir
+        hiperhalka olarak adlandırılır. Bu hiperhalka türünün özel bir çeşidi,
+        Krasner tarafından 1957 yılında tanımlanmıştır. Krasner aynı zamanda
+        1983 yılında hipercisim ve bölüm hiperhalkalarını tanımlamıştır. Diğer
+        yandan, eğer sadece çarpım hiperişlem ise bu hiperhalka türüne
+        çarpımsal hiperhalka denir. Çarpımsal hiperhalkalar 1982 yılında Rota
+        tarafından tanımlanmıştır. Sonrasında bu alanda Nakassis (1988), Olson
+        ve Ward (1997), Procesi ve Rota (1999) gibi birçok bilim insanı da
+        çalışmalar yapmıştır. Son yıllarda cebirsel hiperyapılar, birçok
+        matematikçi tarafından yoğun olarak araştırılmaya devam etmektedir.
+        <br />Son 15 yılda hiper yapıların geometri, hiper grafikler, bulanık
+        kümeler, kaba kümeler, otomata teorisi, kriptografi, ilişki cebirleri,
+        kombinatorik, yapay zekâ ve olasılıklar gibi birçok farklı alanda
+        kullanım alanı bulunduğu görülmektedir (Corsini & Leoreanu, 2003).
+      </p>
+      <h2 class="tanim">Hiperhalka Tanımı(?)</h2>
+      <p>
+        <em>R ≠ Ø</em> kümesi üzerinde tanımlı iki ikili işlem " +" ve "."
+        olsun. <em>(R, +, .)</em> cebirsel yapısı eğer aşağıdaki koşulları
+        sağlarsa halka olarak adlandırılır:
+        <br />
+        <br />(1) <em>(R, +)</em> bir değişmeli gruptur. <br />(2) "."
+        işleminin R de birleşme özelliği vardır. <br />(3) "." işleminin "+"
+        işlemi üzerinde sağdan ve soldan dağılma özelliği vardır:
+        <em>∀ a,b,c ∈ R</em> için, <em>a(b + c) = ab + ac</em> ve
+        <em>(a + b)c = ac + bc</em>
+        <br />
+        <br />Halkanın "+" işlemine göre etkisiz elemanına halkanın
+        <strong>sıfır elemanı</strong> denir ve 0<small>R</small> ile
+        gösterilir. Halkanın "." işlemine göre etkisiz elemanı olmayabilir.
+        Eğer ikinci işleme göre de etkisiz elemanı varsa bu elemana halkanın
+        <strong>birim elemanı</strong> denir ve 1<small>R</small> ile
+        gösterilir. Böyle bir halkaya da <strong>birimli halka</strong> denir.
+        Ayrıca halka ikinci işleme göre değişme özelliğine sahip ise halkaya
+        <strong>değişmeli halka</strong> denir.
+      </p>
+      <h2 class="carpimsal">Çarpımsal Hiperhalkalar</h2>
+      <p>
+        Bu projede öncelikli olarak hipergrup yapıları ve bunların çarpma
+        işlemi üzerine odaklanılacaktır. Hipergrup/çarpımsal hiperhalka tanımı
+        şu şekildedir;
+        <li>
+          H kümesi, <em>ο</em> (iki elemanlı bir çiftten H kümesine alt küme
+          gönderen) adlı bir hiperoperasyona sahip olduğunda, buna
+          <strong>hipergrupoid</strong> denir.
+        </li>
+        <li>
+          Bir hipergrupoid, eğer işlem belirli bir şekilde birleşimsel ise,
+          yani <em>(a ο b) ο c = a ο (b ο c)</em> ise, buna
+          <strong>semihipergrup</strong> denir.
+        </li>
+        <li>
+          Bir hipergrupoid, eğer her <em>a∈H</em> için
+          <em>a ο H = H ο a = H</em> ise, buna
+          <strong>kuasihipergrup</strong> denir. Bu koşul üretim aksiyomu
+          olarak bilinir.
+        </li>
+        <li>
+          Bir hipergrupoid, hem semihipergrup hem de kuasihipergrup ise, buna
+          <strong>kuasihipergrup</strong>hipergrup denir. (F. Marty, 1934,
+          45-49)
+        </li>
+      </p>
+      <h2 class="kriptografi">Hiperhalka Kullanım Alanları - Kriptografi</h2>
+      <p>
+        Hiperhalka teorisi, klasik halka ve grup yapılarından daha karmaşık
+        yapılar sunduğundan kriptografi alanında önemli avantajlar sağlar.
+        Hiperhalka yapıları, anahtar oluşturma ve veri şifreleme süreçlerinde
+        klasik halka yapılarına göre daha geniş bir işlem kümesi sunar. Bu
+        özellik, benzersiz ve tahmin edilmesi zor anahtarlar üretilmesine
+        imkân tanır. Böylece brute-force veya tahmin tabanlı saldırılara karşı
+        sistemlerin dayanıklılığını artırır.
+      </p>
+
+      <p>
+        Hiperhalka aritmetiği, anahtarların belirli matematiksel ilişkiler
+        üzerinden birbirine bağlı şekilde üretilmesini mümkün kılar. Bu durum,
+        dışarıdan müdahaleyi zorlaştırır. Ayrıca, hiperhalka yapılarının
+        sunduğu non-lineer dönüşümler, veri şifreleme sırasında desen
+        analizini zorlaştırır ve böylece veri güvenliğini artırır.
+      </p>
+      <p>
+        Hiperhalka yapıları, Diffie-Hellman gibi anahtar değişim
+        protokollerine entegre edildiğinde tahmin tabanlı ve man-in-the-middle
+        saldırılarına karşı ek güvenlik katmanı oluşturur. Bu yapılar aynı
+        zamanda dinamik anahtar üretimi sayesinde VPN ve SSL gibi
+        protokollerde esneklik sağlar.
+      </p>
+      <p>
+        Şifreleme dışında, veri bütünlüğünü koruma ve sayısal imza üretme
+        süreçlerinde de hiperhalka tabanlı yöntemler kullanılabilir. Böylece
+        hem verilerin gizliliği hem de değiştirilip değiştirilmediği güvence
+        altına alınır. Hiperhalka yapılarının sunduğu bu cebirsel karmaşıklık,
+        şifreleme sistemlerinin çözülmesini zorlaştırır.
+      </p>
+      <p>
+        Sonuç olarak, hiperhalka yapıları kriptografide hem güvenliği artıran
+        hem de sisteme esneklik katan bir araç olarak öne çıkar. Anahtar
+        çeşitliliği, non-lineer dönüşümler, dinamik üretim ve veri bütünlüğü
+        doğrulama özellikleri sayesinde, hiperhalka tabanlı sistemler modern
+        güvenlik protokollerinde önemli bir avantaj sağlar.
+      </p>
+    </div>
+  </section>
+
+  <!-- Header -->
+  <script>
+    fetch("../header/header.html")
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById("header").innerHTML = data;
+      })
+      .catch((error) => console.error("Header yüklenemedi:", error));
+  </script>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <script>
+    fetch("../footer/footer.html")
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById("footer").innerHTML = data;
+      })
+      .catch((error) => console.error("Footer yüklenemedi:", error));
+  </script>
+</body>
+
 </html>

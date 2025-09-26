@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -51,6 +53,23 @@ public class VerificationController {
             } 
             else if (request.baseSet != null && !request.baseSet.isEmpty()) {
 
+                // 1. Kuralın içinde standart çarpma (*) içerip içermediğini kontrol et.
+                if (request.rule == null || !request.rule.contains("*")) {
+                    
+                    // Kural çarpma içermiyorsa, AI'dan bir öneri isteyelim.
+                    String suggestionFromAI = suggestionService.getSuggestion(
+                        request.baseSet.toString(),
+                        request.rule, // Kullanıcının girdiği hatalı kural
+                        "Kuralın çarpma içermemesi" // Hatayı açıklayan bir metin
+                    );
+                    
+                    // Kullanıcıya özel bir hata mesajı ve AI önerisi içeren bir cevap döndür.
+                    return ResponseEntity.badRequest().body(Map.of(
+                        "error", "Girilen kural standart çarpma (*) işlemi içermelidir.",
+                        "suggestion", suggestionFromAI
+                    ));
+                }
+
                 // 2. Adım: Kuralda kullanılacak 'n' gibi sabitleri tanımla
                 Map<String, Object> ruleConstants = Map.of("n", request.baseSet.size());
                 
@@ -61,6 +80,27 @@ public class VerificationController {
                 // 4. Adım: Aksiyom motorunu bu fonksiyonla çalıştır
                 AxiomVerifier<Integer> verifier = new AxiomVerifier<>(request.baseSet, operation);
                 VerificationResult result = verifier.verifyAll();
+
+                Map<String, Map<String, String>> tableData = new LinkedHashMap<>(); // Sırayı korumak için LinkedHashMap
+
+                for (Integer rowElement : request.baseSet) {
+                    Map<String, String> row = new LinkedHashMap<>();
+                    // Sütunlar için döngü
+                    for (Integer colElement : request.baseSet) {
+                        // a ο b işlemini yap
+                        Set<Integer> operationResult = operation.apply(rowElement, colElement);
+                        // Sonucu "{b, c}" gibi bir string'e çevir
+                        String setResultString = operationResult.stream()
+                                                                .map(String::valueOf)
+                                                                .collect(Collectors.joining(", "));
+                        // İç map'e ekle
+                        row.put(String.valueOf(colElement), "{" + setResultString + "}");
+                    }
+                    // Dış map'e ekle
+                    tableData.put(String.valueOf(rowElement), row);
+                }
+                // Oluşturulan tabloyu sonuç nesnesine ekle
+                result.setCayleyTable(tableData);
 
                 // 5. Adım: Gerekirse AI'dan öneri al
                 if (!result.isHypergroup()) {

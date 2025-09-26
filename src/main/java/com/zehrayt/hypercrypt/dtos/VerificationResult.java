@@ -1,5 +1,7 @@
 package com.zehrayt.hypercrypt.dtos;
 
+import java.util.Map;
+
 public class VerificationResult {
     private boolean isHypergroupoid = true; // Temel tanım her zaman sağlanır.
     private boolean isSemihypergroup;
@@ -8,6 +10,7 @@ public class VerificationResult {
     private String highestStructure; // Ulaşılan en yüksek yapının adı
     private String failingAxiom; // Hatanın olduğu ilk aksiyom
     private String suggestion;
+    private Map<String, Map<String, String>> cayleyTable; // Cayley tablosu
     //private boolean isAssociative;
 
     public boolean isHypergroupoid() {
@@ -73,6 +76,14 @@ public class VerificationResult {
 
     public void setSuggestion(String suggestion) {
         this.suggestion = suggestion;
+    }
+
+    public Map<String, Map<String, String>> getCayleyTable() {
+        return cayleyTable;
+    }
+
+    public void setCayleyTable(Map<String, Map<String, String>> cayleyTable) {
+        this.cayleyTable = cayleyTable;
     }
 
 }

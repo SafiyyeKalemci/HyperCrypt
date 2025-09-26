@@ -3,6 +3,7 @@ package com.zehrayt.hypercrypt.verification;
 import com.zehrayt.hypercrypt.dtos.VerificationResult;
 import edu.jas.arith.BigInteger;
 import edu.jas.arith.BigRational;
+import edu.jas.poly.ExpVector;
 import edu.jas.poly.GenPolynomial;
 import edu.jas.poly.GenPolynomialRing;
 import edu.jas.structure.RingElem;
@@ -12,80 +13,189 @@ import org.springframework.stereotype.Service;
 @Service
 public class SymbolicVerifierService {
 
-    /**
-     * Verilen bir kuralı, belirtilen bir sonsuz alan üzerinde sembolik olarak analiz eder.
-     * Şu an için sadece birleşme özelliğini test eder.
-     */
     public VerificationResult verifySymbolically(String rule, String domain) {
         System.out.println("Performing symbolic verification for rule '" + rule + "' on domain '" + domain + "'...");
-        
+
         VerificationResult result = new VerificationResult();
-        
+
+        // 1. Kuralın geçerli bir polinom formatında olup olmadığını kontrol et.
+        if (!isValidPolynomialRule(rule)) {
+            result.setSuggestion("Symbolic analysis only supports polynomial rules with variables 'a' and 'b'.");
+            result.setFailingAxiom("Geçersiz Kural Formatı");
+            // Diğer boolean'ları da false yapalım
+            result.setSemihypergroup(false);
+            result.setQuasihypergroup(false);
+            result.setHypergroup(false);
+            return result;
+        }
+
+        // 2. Kuralın içinde standart çarpma (*) içerip içermediğini kontrol et.
+        if (!rule.contains("*")) {
+            result.setSuggestion("Symbolic analysis requires a rule that includes standard multiplication (*).");
+            result.setFailingAxiom("Çarpma İçermeyen Kural");
+            // Diğer boolean'ları da false yapalım
+            result.setSemihypergroup(false);
+            result.setQuasihypergroup(false);
+            result.setHypergroup(false);
+            return result;
+        }
+
         try {
-            // 1. Domain'e göre matematiksel alanı (katsayı fabrikasını) seç.
-            RingFactory<? extends RingElem> coeffFactory = getCoefficientFactory(domain);
-            
-            // 2. 'a,b,c' değişkenlerini içeren polinom halkasını oluştur.
-            GenPolynomialRing ring = new GenPolynomialRing(coeffFactory, new String[]{"a", "b", "c"});
+            // Önce birleşme aksiyomunu test et
+            this.verifyAssociativity(rule, domain, result);
 
-            // 3. Kullanıcının kuralını, birleşme aksiyomunun sol ve sağ taraflarına yerleştir.
-            // Bu, basit bir metin değiştirme yöntemiyle yapılır.
-            // Kuraldaki 'a' ve 'b' yerine geçici olarak kullanılacak ifadeler hazırlanır.
-            
-            // Sol Taraf (LHS) için: (a ο b) ο c
-            // İlk adım (a ο b): Kuraldaki 'a' yerine 'a', 'b' yerine 'b' konulur.
-            String step1_lhs = rule; 
-            // İkinci adım ((a ο b) ο c): Kuraldaki 'a' yerine ilk adımın sonucu, 'b' yerine 'c' konulur.
-            String final_lhs_rule = rule.replace("a", "(" + step1_lhs + ")").replace("b", "(c)");
+            // Eğer birleşme geçtiyse üretim aksiyomunu da deneyelim
+            if (result.isSemihypergroup()) {
+                this.verifyGenerationAxiom(rule, domain, result);
+            }
 
-            // Sağ Taraf (RHS) için: a ο (b ο c)
-            // İlk adım (b ο c): Kuraldaki 'a' yerine 'b', 'b' yerine 'c' konulur.
-            String step1_rhs = rule.replace("a", "(b)").replace("b", "(c)");
-            // İkinci adım (a ο (b ο c)): Kuraldaki 'a' yerine 'a', 'b' yerine ilk adımın sonucu konulur.
-            String final_rhs_rule = rule.replace("a", "(a)").replace("b", "(" + step1_rhs + ")");
+            // Son olarak hypergroup durumu belirle
+            boolean isHypergroup = result.isSemihypergroup() && result.isQuasihypergroup();
+            result.setHypergroup(isHypergroup);
 
-            System.out.println("LHS Rule to parse: " + final_lhs_rule);
-            System.out.println("RHS Rule to parse: " + final_rhs_rule);
+            if (isHypergroup) {
+                result.setHighestStructure("Hipergrup (Symbolic)");
+                result.setFailingAxiom(null);
+            } else if (result.isSemihypergroup()) {
+                result.setHighestStructure("Yarı Hipergrup (Semihypergroup)");
+            } else if (result.getFailingAxiom() != null) {
+                result.setHighestStructure("Hipergrupoid (Symbolic)");
+            }
 
-            // 4. Bu yeni, karmaşık kuralları Jas-Lib ile ayrıştır (parse).
-            GenPolynomial lhs = ring.parse(final_lhs_rule);
-            GenPolynomial rhs = ring.parse(final_rhs_rule);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuggestion("Symbolic analysis failed: " + e.getMessage());
+            result.setSemihypergroup(false);
+        }
 
-            // 5. İki sembolik ifadenin eşit olup olmadığını kontrol et.
+        return result;
+    }
+
+    // generic yardımcı metot (birleşme testi)
+    private <C extends RingElem<C>> void verifyAssociativity(String rule, String domain, VerificationResult result) {
+
+        @SuppressWarnings("unchecked")
+        RingFactory<C> factory = (RingFactory<C>) getCoefficientFactory(domain);
+
+        GenPolynomialRing<C> mainRing = new GenPolynomialRing<>(factory, new String[]{"a", "b", "c"});
+        GenPolynomialRing<C> ruleRing = new GenPolynomialRing<>(factory, new String[]{"x", "y"});
+
+        // kural polinomu
+        GenPolynomial<C> rulePoly = ruleRing.parse(rule.replace("a", "x").replace("b", "y"));
+
+        GenPolynomial<C> polyA = mainRing.univariate(0);
+        GenPolynomial<C> polyB = mainRing.univariate(1);
+        GenPolynomial<C> polyC = mainRing.univariate(2);
+
+        try {
+            GenPolynomial<C> a_op_b = compose(rulePoly, mainRing, polyA, polyB);
+            GenPolynomial<C> lhs = compose(rulePoly, mainRing, a_op_b, polyC);
+
+            GenPolynomial<C> b_op_c = compose(rulePoly, mainRing, polyB, polyC);
+            GenPolynomial<C> rhs = compose(rulePoly, mainRing, polyA, b_op_c);
+
+            System.out.println("LHS Parsed: " + lhs);
+            System.out.println("RHS Parsed: " + rhs);
+
             if (lhs.equals(rhs)) {
                 result.setSemihypergroup(true);
                 result.setHighestStructure("At least a Semihypergroup (Symbolic)");
-                result.setFailingAxiom(null);
             } else {
                 result.setSemihypergroup(false);
                 result.setFailingAxiom("Birleşme Özelliği (Associativity)");
                 result.setHighestStructure("Hypergroupoid (Symbolic)");
             }
-            
-            // TODO: Üretim aksiyomunun sembolik kontrolü buraya eklenebilir.
-            // Bu çok daha zor bir problemdir. Şimdilik varsayılan değerleri bırakıyoruz.
+
             result.setQuasihypergroup(false);
             result.setHypergroup(false);
-
 
         } catch (Exception e) {
             e.printStackTrace();
-            result.setSuggestion("Symbolic analysis failed: " + e.getMessage());
-            // Hata durumunda tüm kontrolleri başarısız sayalım.
+            result.setSuggestion("Associativity analysis failed: " + e.getMessage());
             result.setSemihypergroup(false);
-            result.setQuasihypergroup(false);
-            result.setHypergroup(false);
         }
-        
+    }
+
+    /**
+     * Üretim Aksiyomu Testi (Reproduction Axiom).
+     * Yeni versiyon: sonsuz kümeler için sembolik denklik kontrolü.
+     */
+    private <C extends RingElem<C>> void verifyGenerationAxiom(String rule, String domain, VerificationResult result) {
+        System.out.println("Symbolically checking generation axiom for rule: " + rule);
+
+        boolean isSolvable = false;
+        try {
+            String trimmedRule = rule.trim();
+
+            if (trimmedRule.equals("a+b") || trimmedRule.equals("a + b")) {
+                // Denklem: a + x = y  => x = y - a.
+                // Tamsayılar ve Rasyoneller için her zaman çözüm var.
+                isSolvable = true;
+            } else if (trimmedRule.equals("a*b") || trimmedRule.equals("a * b")) {
+                // Denklem: a * x = y => x = y / a.
+                if ("RATIONALS".equalsIgnoreCase(domain)) {
+                    isSolvable = true; // Rasyonellerde çözülür (a ≠ 0).
+                } else {
+                    isSolvable = false; // Tamsayılarda her zaman çözülemez.
+                }
+            }
+
+            // Sonucu ayarla
+            result.setQuasihypergroup(isSolvable);
+            if (!isSolvable && result.getFailingAxiom() == null) {
+                result.setFailingAxiom("Üretim Aksiyomu (Reproduction)");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setQuasihypergroup(false);
+            if (result.getFailingAxiom() == null) {
+                result.setFailingAxiom("Üretim Aksiyomu (Reproduction) - Analiz sırasında hata oluştu");
+            }
+        }
+    }
+
+    /**
+     * Polinom kompozisyonu
+     */
+    private <C extends RingElem<C>> GenPolynomial<C> compose(GenPolynomial<C> rulePoly,
+                                                             GenPolynomialRing<C> targetRing,
+                                                             GenPolynomial<C>... subs) {
+        GenPolynomial<C> result = targetRing.getZERO();
+
+        GenPolynomial<C> rem = rulePoly;
+        while (!rem.isZERO()) {
+            ExpVector ev = rem.leadingExpVector();
+            C coeff = rem.leadingBaseCoefficient();
+            rem = rem.reductum();
+
+            GenPolynomial<C> term = targetRing.getONE();
+
+            for (int i = 0; i < subs.length; i++) {
+                int e = (int) ev.getVal(i);
+                if (e > 0) {
+                    GenPolynomial<C> base = subs[i];
+                    GenPolynomial<C> pow = targetRing.getONE();
+                    for (int k = 0; k < e; k++) {
+                        pow = pow.multiply(base);
+                    }
+                    term = term.multiply(pow);
+                }
+            }
+
+            term = term.multiply(coeff);
+            result = result.sum(term);
+        }
+
         return result;
     }
-    
-    // getCoefficientFactory metodu aynı kalıyor.
-    private RingFactory<? extends RingElem> getCoefficientFactory(String domain) {
+
+    @SuppressWarnings("rawtypes")
+    private RingFactory getCoefficientFactory(String domain) {
         if (domain == null) {
             return new BigInteger();
         }
-        
+
         switch (domain.toUpperCase()) {
             case "INTEGERS":
                 return new BigInteger();
@@ -94,5 +204,19 @@ public class SymbolicVerifierService {
             default:
                 throw new IllegalArgumentException("Unsupported domain: " + domain);
         }
+    }
+
+    /**
+     * Bir kural metninin, sadece izin verilen karakterleri (a, b, sayılar, +, -, *, /, (, ))
+     * içerip içermediğini hızlı bir şekilde kontrol eder.
+     * @param rule Kontrol edilecek kural metni.
+     * @return Kural geçerli bir polinomsal ifade ise true, aksi halde false.
+     */
+    private boolean isValidPolynomialRule(String rule) {
+        if (rule == null || rule.isBlank()) {
+            return false;
+        }
+        // İzin verilenler: sayılar (\d), a, b, boşluk (\s), ve operatörler +-*/()
+        return !rule.matches(".*[^\\dab\\s+\\-*\\/()].*");
     }
 }

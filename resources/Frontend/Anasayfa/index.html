@@ -21,35 +21,44 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="../footer/footer.css" />
   </head>
+
   <body>
     <div id="header"></div>
 
     <!--Proje Hakkında-->
-    <section class="content-section" id="proje">
+    <section class="hero-section" id="proje">
       <div class="text">
-        <h2>Çarpımsal Hiperhalkaların Algoritmik Modellemesi</h2>
+        <h1>Çarpımsal Hiperhalkaların Algoritmik Modellemesi</h1>
+        <h3>
+          TÜBİTAK 2209-A kapsamında desteklenen "Hiperhalkaların
+          Somutlaştırılması" projesi
+        </h3>
         <p>
-          Bu proje, <strong>TÜBİTAK 2209-A</strong> kapsamında desteklenen
-          <strong>"Hiperhalkaların Somutlaştırılması"</strong> çalışmasıdır.
-          Projemizin amacı, hiperhalkaların yapısını bilgisayar ortamında
-          somutlaştırarak bir algoritma geliştirmek ve bu algoritmayı kullanıcı
-          dostu bir web sitesi aracılığıyla erişilebilir hale getirmektir.
-          Böylece hem öğrenciler hem de araştırmacılar, soyut matematiksel
-          kavramları daha anlaşılır bir şekilde deneyimleyebilecektir.
+          Projemiz, hiperhalkaların yapısını bilgisayar ortamında
+          somutlaştırarak kullanıcı dostu bir algoritma ve web arayüzü sunar.
+          Böylece öğrenciler ve araştırmacılar soyut matematiği
+          deneyimleyebilir, aynı zamanda siber güvenlikte daha güçlü şifreleme
+          ve güvenli veri iletişimine katkı sağlanır.
         </p>
-        <p>
-          Bu çalışma aynı zamanda siber güvenlik alanında daha güçlü şifreleme
-          yöntemleri geliştirme, anahtar değişim protokollerini güvenli hale
-          getirme ve veri bütünlüğünü artırma gibi katkılar sunmayı
-          hedeflemektedir.
-        </p>
+        <div class="hero-buttons">
+          <a href="../Hiperhalkalar/hiperhalka.html" class="btn"
+            >Hiperhalkaları Keşfet</a
+          >
+          <a href="../Fonksiyon/func.html" class="btn">Fonksiyonu Dene</a>
+        </div>
       </div>
+      <dotlottie-wc
+        src="https://lottie.host/8bf7e70a-a299-44ad-b717-a712701eedb0/yB5ezZmdx2.lottie"
+        autoplay
+        loop
+      ></dotlottie-wc>
     </section>
 
     <!--Hiperhalkaları Keşfet-->
     <section class="content-section reverse">
       <div class="text">
         <h2>Hiperhalkaları Keşfet</h2>
+        <div class="title-underline"></div>
         <p>
           Hiperhalkalar, soyut cebirin önemli bir alanıdır ve klasik toplama ve
           çarpma işlemlerinden farklı olarak, bir işlem sonucu tek bir eleman
@@ -68,7 +77,8 @@
       </div>
 
       <div class="image">
-        <img src="" alt="Hiperhalka Görseli" />
+        <img src="../../Images/formula.png" alt="Formula" class="formula" />
+        <img src="../../Images/diagram.png" alt="Diagram" class="diagram" />
       </div>
       <!--Dalga-->
       <div class="custom-shape-divider-top-1756072994">
@@ -78,21 +88,6 @@
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
         >
-          <defs>
-            <linearGradient
-              id="dalgaGradient"
-              x1="100%"
-              y1="0%"
-              x2="0%"
-              y2="0%"
-            >
-              <stop offset="0%" style="stop-color: #184a6e; stop-opacity: 1" />
-              <stop
-                offset="100%"
-                style="stop-color: #287db1; stop-opacity: 1"
-              />
-            </linearGradient>
-          </defs>
           <path
             d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
             fill="url(#dalgaGradient)"
@@ -103,22 +98,23 @@
 
     <!--Fonksiyon Hakkında-->
     <section class="content-section">
+      <div class="image">
+        <img src="../../Images/table.png" alt="Table" class="table" />
+      </div>
       <div class="text">
         <h2>Fonksiyon Hakkında</h2>
+        <div class="title-underline"></div>
         <p>
           Fonksiyonumuz, hiperhalka yapısını kullanıcıya anlaşılır kılmak için
-          tasarlanmıştır. Girdiğiniz denklem ve sayılar, hiperhalka kurallarına
-          göre işlenir ve sonuç bir küme olarak ekranda gösterilir. Böylece
-          teorik bir yapı olan hiperhalkaların nasıl çalıştığını pratik olarak
-          keşfedebilir ve bu yapıların şifreleme, güvenlik ve yapay zeka gibi
+          tasarlanmıştır. Girdiğiniz küme elemanları ve tanımlı kurallar,
+          hiperhalka kurallarına göre işlenir ve eğer küme hiperhalka yapısını
+          sağlıyorsa sonuçlar tablo halinde ekrana yazdırılır. Böylece teorik
+          bir yapı olan hiperhalkaların nasıl çalıştığını pratik olarak
+          keşfedebilir ve bu yapıların şifreleme, güvenlik veya yapay zeka gibi
           alanlarda nasıl kullanılabileceğini daha iyi anlayabilirsiniz.
         </p>
 
         <a href="../Fonksiyon/func.html" class="btn">Fonksiyonu Dene</a>
-      </div>
-
-      <div class="image">
-        <img src="" alt="Fonksiyon Görseli" />
       </div>
     </section>
 
@@ -127,6 +123,8 @@
       <div class="about-preview">
         <div class="about-header">
           <h2>Hakkımızda</h2>
+          <div class="title-underline"></div>
+          <p>Proje ekibimizi tanıyın</p>
         </div>
 
         <div class="about-cards">
@@ -147,7 +145,8 @@
                 </p>
               </div>
               <div class="card-back">
-                <h3>İletişim</h3>
+                <h2>İletişim</h2>
+                <p>Benimle iletişime geçin</p>
                 <div class="icons">
                   <a href="mailto:f.zehra9638@gmail.com"
                     ><i class="fa-solid fa-envelope"></i
@@ -184,7 +183,8 @@
                 </p>
               </div>
               <div class="card-back">
-                <h3>İletişim</h3>
+                <h2>İletişim</h2>
+                <p>Benimle iletişime geçin</p>
                 <div class="icons">
                   <a href="mailto:kalemcisafiyye@gmail.com"
                     ><i class="fa-solid fa-envelope"></i
@@ -219,7 +219,8 @@
                 </p>
               </div>
               <div class="card-back">
-                <h3>İletişim</h3>
+                <h2>İletişim</h2>
+                <p>Benimle iletişime geçin</p>
                 <div class="icons">
                   <a href="mailto:elifözelay@example.com"
                     ><i class="fa-solid fa-envelope"></i
@@ -235,6 +236,11 @@
       </div>
     </section>
 
+    <!--Lottie-->
+    <script
+      src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.1/dist/dotlottie-wc.js"
+      type="module"
+    ></script>
     <!-- Header -->
     <script>
       fetch("../header/header.html")

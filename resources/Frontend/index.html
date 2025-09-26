@@ -17,9 +17,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
 
-    <link rel="stylesheet" href="../header/header.css" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="../footer/footer.css" />
+    <link rel="stylesheet" href="header/header.css" />
+    <link rel="stylesheet" href="Anasayfa/style.css" />
+    <link rel="stylesheet" href="footer/footer.css" />
   </head>
 
   <body>
@@ -41,10 +41,10 @@
           ve güvenli veri iletişimine katkı sağlanır.
         </p>
         <div class="hero-buttons">
-          <a href="../Hiperhalkalar/hiperhalka.html" class="btn"
+          <a href="Hiperhalkalar/hiperhalka.html" class="btn"
             >Hiperhalkaları Keşfet</a
           >
-          <a href="../Fonksiyon/func.html" class="btn">Fonksiyonu Dene</a>
+          <a href="Fonksiyon/func.html" class="btn">Fonksiyonu Dene</a>
         </div>
       </div>
       <dotlottie-wc
@@ -73,12 +73,12 @@
           benzersiz ve güçlü anahtarlar üretebilir; bu da siber güvenlik
           sistemlerinde ekstra koruma sağlar.
         </p>
-        <a href="../Hiperhalkalar/hiperhalka.html" class="btn">Devamını Oku</a>
+        <a href="Hiperhalkalar/hiperhalka.html" class="btn">Devamını Oku</a>
       </div>
 
       <div class="image">
-        <img src="../../Images/formula.png" alt="Formula" class="formula" />
-        <img src="../../Images/diagram.png" alt="Diagram" class="diagram" />
+        <img src="../Images/formula.png" alt="Formula" class="formula" />
+        <img src="../Images/diagram.png" alt="Diagram" class="diagram" />
       </div>
       <!--Dalga-->
       <div class="custom-shape-divider-top-1756072994">
@@ -99,7 +99,7 @@
     <!--Fonksiyon Hakkında-->
     <section class="content-section">
       <div class="image">
-        <img src="../../Images/table.png" alt="Table" class="table" />
+        <img src="../Images/table.png" alt="Table" class="table" />
       </div>
       <div class="text">
         <h2>Fonksiyon Hakkında</h2>
@@ -114,7 +114,7 @@
           alanlarda nasıl kullanılabileceğini daha iyi anlayabilirsiniz.
         </p>
 
-        <a href="../Fonksiyon/func.html" class="btn">Fonksiyonu Dene</a>
+        <a href="Fonksiyon/func.html" class="btn">Fonksiyonu Dene</a>
       </div>
     </section>
 
@@ -172,7 +172,7 @@
             <div class="card-inner">
               <div class="card-front">
                 <div class="card-header">
-                  <img src="../../Images/Safiyye.jpg" alt="Safiyye Kalemci" />
+                  <img src="Images/Safiyye.jpg" alt="Safiyye Kalemci" />
                   <div class="info">
                     <h3>Safiyye Kalemci</h3>
                     <h5>Frontend Developer</h5>
@@ -246,7 +246,7 @@
     ></script>
     <!-- Header -->
     <script>
-      fetch("../header/header.html")
+      fetch("header/header.html")
         .then((response) => response.text())
         .then((data) => {
           document.getElementById("header").innerHTML = data;
@@ -259,7 +259,7 @@
     <div id="footer"></div>
 
     <script>
-      fetch("../footer/footer.html")
+      fetch("footer/footer.html")
         .then((response) => response.text())
         .then((data) => {
           document.getElementById("footer").innerHTML = data;

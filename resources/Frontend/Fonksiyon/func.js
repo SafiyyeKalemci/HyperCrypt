@@ -1,5 +1,6 @@
 const finiteBtn = document.getElementById("finiteBtn");
 const infiniteBtn = document.getElementById("infiniteBtn");
+const API_BASE_URL = 'https://hypercrypt.up.railway.app';
 
 finiteBtn.addEventListener("click", function () {
   if (this.id === "finiteBtn") {
@@ -23,95 +24,166 @@ document.getElementById("finite-set").style.display = "block";
 document.getElementById("infinite-set").style.display = "none";
 finiteBtn.classList.add("active");
 
-function showResults() {
-  // Diyelim ki kullanıcı şu elemanları girdi
-  const elements = ["a", "b", "c"];
+async function showResults() {
+    const isFiniteMode = document.getElementById("finite-set").style.display === "block";
+    const rule = document.getElementById("rules").value;
+    
+    let requestData;
 
-  // Tablo başlığı
-  let tableHTML = `
-    <h3>Sonuçlar</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>*</th>
-          ${elements.map((el) => `<th>${el}</th>`).join("")}
-        </tr>
-      </thead>
-      <tbody>
-  `;
+    // 1. Adım: Kullanıcının girdiği verilere göre isteği hazırla.
+    if (isFiniteMode) {
+        const elementsInput = document.getElementById("elements").value;
+        // Virgülle ayrılmış metni alıp, boşlukları temizleyip, sayı dizisine çevir.
+        const baseSet = elementsInput.split(',').map(el => parseInt(el.trim())).filter(num => !isNaN(num));
+        
+        if (baseSet.length === 0) {
+            alert("Lütfen geçerli bir sonlu küme girin.");
+            return;
+        }
+        
+        requestData = {
+            baseSet: baseSet,
+            rule: rule
+        };
+    } else { // Sonsuz Küme Modu
+        const domainSelect = document.getElementById("infiniteOptions");
+        const domain = domainSelect.options[domainSelect.selectedIndex].text.toUpperCase().split(" ")[0]; // "TAMSAYILAR" -> "INTEGERS" gibi. Bu backend'e uygun olmalı.
+        
+        requestData = {
+            domain: "INTEGERS", // Şimdilik sadece INTEGERS destekliyor.
+            rule: rule
+        };
+    }
+    
+    // 2. Adım: Backend API'sine fetch ile istek gönder.
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/verify`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        });
 
-  // Satırlar
-  elements.forEach((rowEl) => {
-    tableHTML += `<tr><th>${rowEl}</th>`;
-    elements.forEach((colEl) => {
-      tableHTML += `<td>{${rowEl}*${colEl}}</td>`; // burada backend’den gelen gerçek sonuç yazılacak
-    });
-    tableHTML += `</tr>`;
-  });
+        const data = await response.json();
 
-  tableHTML += `</tbody></table>`;
+        // 3. Adım: Gelen cevaba göre arayüzü güncelle.
+        if (response.ok) {
+            renderSuccess(data);
+        } else {
+            renderError(data);
+        }
 
-  document.getElementById("result").innerHTML = tableHTML;
-
-  // Burada backend çağrısı yapmamız lazım, örnek için dummy veri kullanıyorum
-  const backendResponse = {
-    highestStructure: "Hypergroup",
-    tests: {
-      semihypergroup: true,
-      hypergroupoid: true,
-      quasihypergroup: false,
-      hypergroup: true,
-    },
-    isHypergroup: true, // bu 6. adım için lazım
-  };
-
-  let testsHTML = `
-    <p><b>Highest Structure:</b> ${backendResponse.highestStructure}</p>
-    <ul>
-      <li>
-      <span>Semihypergroup</span>
-      <span class="pill ${
-        backendResponse.tests.semihypergroup ? "true" : "false"
-      }">
-        ${backendResponse.tests.semihypergroup}
-      </span>
-    </li>
-    <li>
-      <span>Hypergroupoid</span>
-      <span class="pill ${
-        backendResponse.tests.hypergroupoid ? "true" : "false"
-      }">
-        ${backendResponse.tests.hypergroupoid}
-      </span>
-    </li>
-    <li>
-      <span>Quasihypergroup</span>
-      <span class="pill ${
-        backendResponse.tests.quasihypergroup ? "true" : "false"
-      }">
-        ${backendResponse.tests.quasihypergroup}
-      </span>
-    </li>
-    <li>
-      <span>Hypergroup</span>
-      <span class="pill ${backendResponse.tests.hypergroup ? "true" : "false"}">
-        ${backendResponse.tests.hypergroup}
-      </span>
-    </li>
-    </ul>
-  `;
-
-  document.getElementById("structure-tests").innerHTML = testsHTML;
-
-  const resultsSection = document.getElementById("results-section");
-  resultsSection.style.display = "block"; // görünür yap
-  resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
-
-  // 6. kısım koşullu render burada olacak
-  if (!backendResponse.isHypergroup) {
-    showAIAssistant();
-  }
+    } catch (error) {
+        renderError({ error: "API'ye bağlanırken bir hata oluştu: " + error.message });
+    }
 }
+
+
+// --- YENİ YARDIMCI FONKSİYONLAR ---
+
+// Başarılı sonuçları ekrana yazdıran fonksiyon
+function renderSuccess(data) {
+    // Cayley Tablosunu Oluştur
+    if (data.cayleyTable) {
+        let tableHTML = `<h3>İşlem Tablosu (Cayley Table)</h3><table><thead><tr><th>ο</th>`;
+        const headers = Object.keys(data.cayleyTable);
+        headers.forEach(h => tableHTML += `<th>${h}</th>`);
+        tableHTML += `</tr></thead><tbody>`;
+
+        headers.forEach(rowKey => {
+            tableHTML += `<tr><th>${rowKey}</th>`;
+            headers.forEach(colKey => {
+                tableHTML += `<td>${data.cayleyTable[rowKey][colKey] || "-"}</td>`;
+            });
+            tableHTML += `</tr>`;
+        });
+        tableHTML += `</tbody></table>`;
+        document.getElementById("result").innerHTML = tableHTML;
+    } else {
+         document.getElementById("result").innerHTML = `<h3>Analiz Sonucu</h3>`;
+    }
+
+    // Aksiyom Test Sonuçlarını Oluştur
+    let testsHTML = `
+        <p><b>En Yüksek Yapı:</b> ${data.highestStructure || "Belirlenemedi"}</p>
+        <ul>
+            <li><span>Hipergrupoid</span><span class="pill ${data.hypergroupoid}">${data.hypergroupoid}</span></li>
+            <li><span>Yarı Hipergrup</span><span class="pill ${data.semihypergroup}">${data.semihypergroup}</span></li>
+            <li><span>Kuazi Hipergrup</span><span class="pill ${data.quasihypergroup}">${data.quasihypergroup}</span></li>
+            <li><span>Hipergrup</span><span class="pill ${data.hypergroup}">${data.hypergroup}</span></li>
+        </ul>
+    `;
+    document.getElementById("structure-tests").innerHTML = testsHTML;
+    
+    // AI Önerisini Göster/Gizle
+    if (data.suggestion) {
+        document.getElementById("ai-message").innerText = data.suggestion;
+        document.getElementById("ai-assistant").style.display = "block";
+    } else {
+        document.getElementById("ai-assistant").style.display = "none";
+    }
+
+    // Sonuç bölümünü görünür yap ve scroll et
+    const resultsSection = document.getElementById("results-section");
+    resultsSection.style.display = "block";
+    resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// Hataları ekrana yazdıran fonksiyon
+function renderError(data) {
+    let errorHTML = `
+        <h3>Hata!</h3>
+        <p class="error-message">${data.error || "Bilinmeyen bir hata oluştu."}</p>
+    `;
+    // Eğer AI önerisi varsa, onu da gösterelim
+    if (data.suggestion) {
+        document.getElementById("ai-message").innerText = data.suggestion;
+        document.getElementById("ai-assistant").style.display = "block";
+    } else {
+        document.getElementById("ai-assistant").style.display = "none";
+    }
+
+    document.getElementById("result").innerHTML = errorHTML;
+    document.getElementById("structure-tests").innerHTML = ""; // Testleri temizle
+    
+    const resultsSection = document.getElementById("results-section");
+    resultsSection.style.display = "block";
+    resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+
+// --- Örnekler ve Tab Mantığı (Bu kısım aynı kalabilir) ---
+// ... (Önceki koddaki tab geçişleri ve örnekler kısmı buraya gelecek) ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function showAIAssistant() {
   // Backend’den gelen yapay zeka mesajını alacağız, örnek:

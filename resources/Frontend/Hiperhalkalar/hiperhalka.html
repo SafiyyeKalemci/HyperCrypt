@@ -11,10 +11,10 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
     rel="stylesheet" />
-
-  <link rel="stylesheet" href="../header/header.css" />
+  <script src="/resources/Frontend/js/include.js" defer></script>
   <link rel="stylesheet" href="hiperhalka.css" />
-  <link rel="stylesheet" href="../footer/footer.css" />
+  <link rel="stylesheet" href="/resources/Frontend/header/header.css" />
+  <link rel="stylesheet" href="/resources/Frontend/footer/footer.css" />
 
   <!--MathJax-->
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -161,27 +161,7 @@
     </div>
   </section>
 
-  <!-- Header -->
-  <script>
-    fetch("../header/header.html")
-      .then((response) => response.text())
-      .then((data) => {
-        document.getElementById("header").innerHTML = data;
-      })
-      .catch((error) => console.error("Header yüklenemedi:", error));
-  </script>
-
-  <!-- Footer -->
+  
   <div id="footer"></div>
-
-  <script>
-    fetch("../footer/footer.html")
-      .then((response) => response.text())
-      .then((data) => {
-        document.getElementById("footer").innerHTML = data;
-      })
-      .catch((error) => console.error("Footer yüklenemedi:", error));
-  </script>
-</body>
 
 </html>

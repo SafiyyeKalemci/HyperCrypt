@@ -10,18 +10,13 @@ header{
     border-bottom: 1px solid #ddd;
     font-family: 'Space Grotesk', sans-serif;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    
+
 }
 
 header .logo h1 {
     font-size: 25px;
     font-weight:bold;
     color: darkblue;
-    /*
-    background: linear-gradient(90deg, #1e3a8a, #396ee1);
-    -webkit-background-clip: text;  /* sadece WebKit tabanlı tarayıcılarda (Chrome, Safari, Edge Chromium) çalışır, ama Firefox’ta doğrudan çalışmaz. 
-    -webkit-text-fill-color: transparent;
-    */
     margin-left: 50px;
     letter-spacing: 0.5px;
     -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.2);
@@ -32,6 +27,7 @@ header .logo h1 a {
   color: inherit;       
   text-decoration: none; 
   transition: color 0.3s;
+  align-items: center;
 
 }
 
@@ -46,6 +42,12 @@ header .logo p {
     margin-top: -15px;    
 }
 
+header nav {
+  flex: 1; 
+  display: flex;
+  justify-content: center;
+}
+
 header nav ul {
     display: flex;
     list-style: none;
@@ -55,8 +57,7 @@ header nav ul {
 }
 header nav ul li {
     display: inline-block;
-    margin-right: 45px;
-   
+     margin-right: 40px;
 }
 
 header nav ul li a {
@@ -64,35 +65,45 @@ header nav ul li a {
     color: #333;
     font-size: 18px;
     font-weight: bold;
-    transition: color 0.3s ease;
-    
+    transition: color 0.3s ease; 
 }
 
 header nav ul li a:hover {
     color: darkblue;
 }
 
-.language-switch{
-    display: flex;
-    justify-content:center;
-    
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
 }
-.language-switch button {
-    font-weight: bold;
-    background-color: darkblue;
-    color:#fff;
-    margin-right: 20px;
-    margin-left: -10px;
-    padding: 5px 10px;
-    border: 0px none;
-    border-radius: 5px;
+
+/* --- Mobil görünüm --- */
+@media (max-width: 768px) {
+  header {
+    flex-wrap: wrap; 
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 28px;
     cursor: pointer;
-    transition: background 0.3s ease;
-    
-}
+    margin-right: 20px;
+  }
 
-.language-switch button:hover{
-    background-color: #2563eb;
-}
+  header nav ul {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    background: white;
+    padding: 15px 0;
+    border-top: 1px solid #ddd;
+  }
 
+  header nav ul.show {
+    display: flex;
+  }
+}
 

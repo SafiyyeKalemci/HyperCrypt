@@ -1,59 +1,33 @@
-<!DOCTYPE html>
-<html lang="tr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hiperhalkaların Modellemesi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="./header.css" />
+<header class = "header" id="header">
+  <div class="logo">
+    <h1><a href="../index.html">Hiperhalkaların Modellemesi</a></h1>
+    <p>Tübitak 2209-A Projesi</p>
+  </div>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="header.css" />
-  </head>
-  <body>
-    <header>
-      <div class="logo">
-        <h1>
-          <a href="../Anasayfa/index.html">Hiperhalkaların Modellemesi</a>
-        </h1>
-        <p>Tübitak 2209-A Projesi</p>
-      </div>
+  <!-- Hamburger buton -->
+  <button
+    class="menu-toggle"
+    type="button"
+    aria-label="Menüyü aç/kapat"
+    aria-expanded="false"
+    aria-controls="primary-navigation"
+  >
+    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+  </button>
 
-      <nav>
-        <ul>
-          <li><a href="../Anasayfa/index.html">Anasayfa</a></li>
-          <li>
-            <a href="../Hiperhalkalar/hiperhalka.html">Hiperhalka Nedir?</a>
-          </li>
-          <li><a href="../Fonksiyon/func.html">Fonksiyon</a></li>
-          <li><a href="../Anasayfa/index.html#hakkimizda">Hakkımızda</a></li>
-        </ul>
-      </nav>
-
-      <!-- Hamburger butonu -->
-      <div class="menu-toggle" id="menu-toggle">☰</div>
-    </header>
-
-    <!--<script>
-      const toggle = document.getElementById("menu-toggle");
-      const navList = document.querySelector("header nav ul");
-
-      toggle.addEventListener("click", () => {
-        navList.classList.toggle("show");
-      });
-    </script>-->
-
-    <script>
-      const toggle = document.getElementById("menu-toggle");
-      const navList = document.querySelector("header nav ul");
-
-      toggle.addEventListener("click", () => {
-        console.log("Hamburger tıklandı ✅");
-        navList.classList.toggle("show");
-      });
-    </script>
-  </body>
-</html>
+  <nav id="primary-navigation">
+    <ul>
+      <li><a href="../Anasayfa/index.html">Anasayfa</a></li>
+      <li><a href="../Hiperhalkalar/hiperhalka.html">Hiperhalka Nedir?</a></li>
+      <li><a href="../Fonksiyon/func.html">Fonksiyon</a></li>
+      <li><a href="../Anasayfa/index.html#hakkimizda">Hakkımızda</a></li>
+    </ul>
+  </nav>
+</header>

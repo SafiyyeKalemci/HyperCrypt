@@ -1,0 +1,75 @@
+/* Full-screen loading overlay for root index.html */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(90deg, #184a6e, #287db1, #4da8da);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loading-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: #ffffff;
+}
+
+/* Runner scene */
+.runner-scene {
+  position: relative;
+  width: 220px;
+  height: 70px;
+}
+
+.runner-icon {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  font-size: 34px;
+  line-height: 1;
+  animation: moveX 1.2s linear infinite alternate, bob 0.35s ease-in-out infinite alternate;
+}
+
+.track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: repeating-linear-gradient(
+    to right,
+    #d1d5db 0 16px,
+    #ffffff 16px 28px
+  );
+  animation: scrollTrack 0.8s linear infinite;
+}
+
+@keyframes moveX {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(160px); }
+}
+
+@keyframes bob {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-6px); }
+}
+
+@keyframes scrollTrack {
+  0% { background-position: 0 0; }
+  100% { background-position: -44px 0; }
+}
+
+.loading-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}

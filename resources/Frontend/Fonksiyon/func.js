@@ -157,34 +157,6 @@ function renderError(data) {
 // ... (Önceki koddaki tab geçişleri ve örnekler kısmı buraya gelecek) ...
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function showAIAssistant() {
   // Backend’den gelen yapay zeka mesajını alacağız, örnek:
   const aiMessage =
@@ -213,57 +185,53 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
 const examples = {
   finite1: {
     set: ["1", "2", "3"],
-    rules: "a*b=a; a*c=b",
+    rules: "a*b",
     results: {
       "1*1": "1",
-      "1*2": "1",
-      "1*3": "2",
-      "2*1": "1",
-      "2*2": "2",
-      "2*3": "3",
-      "3*1": "2",
-      "3*2": "3",
-      "3*3": "1",
+      "1*2": "2",
+      "1*3": "3",
+      "2*1": "2",
+      "2*2": "4",
+      "2*3": "6",
+      "3*1": "3",
+      "3*2": "6",
+      "3*3": "9",
     },
   },
 
   finite2: {
-    set: ["a", "b"],
-    rules: "a*b=b; b*b=a",
+    set: ["1", "3", "5"],
+    rules: "[2*a*b, 3*a*b]",
     results: {
-      "a*a": "a",
-      "a*b": "b",
-      "b*a": "b",
-      "b*b": "a",
+      "1*1": "{2,3}",
+      "1*3": "{6,9}",
+      "1*5": "{10,15}",
+      "3*1": "{6,9}",
+      "3*3": "{18,27}",
+      "3*5": "{45,30}",
+      "5*1": "{10,15}",
+      "5*3": "{45,30}",
+      "5*5": "{50,75}",
     },
   },
 
   finite3: {
-    set: ["x", "y", "z"],
-    rules: "x*y=z; y*z=x",
+    set: ["1", "2", "3"],
+    rules: "[a*b-1, a-1*b]",
     results: {
-      "x*x": "x",
-      "x*y": "z",
-      "x*z": "y",
-      "y*x": "z",
-      "y*y": "y",
-      "y*z": "x",
-      "z*x": "y",
-      "z*y": "x",
-      "z*z": "z",
+      "1*1": "{0}",
+      "1*2": "{-1,1}",
+      "1*3": "{-2,2}",
+      "2*1": "{1}",
+      "2*2": "{0,3}",
+      "2*3": "{-1,5}",
+      "3*1": "{2}",
+      "3*2": "{1,5}",
+      "3*3": "{0,8}",
     },
   },
 
   infinite1: {
-    set: "ℤ (Tam sayılar)",
-    rules: "a+b ∈ ℤ",
-    examples: [
-      { a: 2, b: 3, result: 5 },
-      { a: -1, b: 4, result: 3 },
-    ],
-  },
-
-  infinite2: {
     set: "ℚ (Rasyonel sayılar)",
     rules: "a*b ∈ ℚ",
     examples: [
@@ -271,6 +239,8 @@ const examples = {
       { a: "1/3", b: "3", result: "1" },
     ],
   },
+
+ 
 };
 
 // Tek fonksiyon: finite mi infinite mi ayırıyor

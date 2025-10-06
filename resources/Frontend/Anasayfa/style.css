@@ -224,13 +224,13 @@ body {
 
 /*Hakkımızda Özet*/
 .about-section {
-  background: rgb(230, 248, 255);
+  background: white;
   width: 100%;
   padding: 50px 0 150px;
 }
 
 .about-preview {
-  background: rgb(230, 248, 255);
+  background: white;
   padding: 0 20px;
   border-radius: 12px;
   margin: 0 auto;
@@ -299,7 +299,7 @@ body {
 
 /* Ön yüz */
 .card-front {
-  background: white;
+  background: rgb(230, 248, 255);
   text-align: left;
 }
 
@@ -525,4 +525,129 @@ body {
   .about-header p {
     font-size: 16px;
   }
+}
+
+.cyber-security-module-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px; 
+    background-color: rgb(230, 248, 255); 
+    width: 100%;
+    color: rgb(13, 13, 13);
+    text-align: center;
+    flex-direction: column;
+    transition: background-color 0.5s ease;
+    padding: 50px 20px; 
+}
+
+.cyber-security-module {
+    position: relative;
+    width: 500px;
+    height: 300px;
+    border: 2px solid  #8a6be1; 
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(102, 76, 175, 0.3); 
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: rgb(138, 43, 226); 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cyber-security-module:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(7, 98, 51, 0.8); 
+}
+
+.hover-video {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+    opacity: 0; 
+    transition: opacity 0.5s ease;
+}
+
+.cyber-security-module.hovering .hover-video {
+    display: block;
+    opacity: 1; 
+}
+
+.content {
+    position: relative; 
+    z-index: 1; 
+    color: white; 
+    transition: opacity 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.lock-icon {
+    width: 50px; 
+    height: 50px; 
+    background-color: transparent; 
+    border-radius: 50%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    mask: url('../Images/sec-icon.png') no-repeat center; 
+    background-color: #000000; 
+    -webkit-mask-size: contain;
+    mask-size: contain;
+}
+
+.cyber-security-module h1 {
+    font-size: 2em; 
+    margin: 0 0 10px 0;
+    color: white; 
+}
+
+.cyber-transition-area {
+    margin-top: 10px;
+    font-size: 1.1em; 
+    color: #090e57; 
+}
+
+
+.module-btn {
+    display: block; 
+    margin-top: 25px; 
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #664caf, #8a6be1);
+    color: #fff; 
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    cursor: pointer;
+    opacity: 0; 
+    pointer-events: none;
+    z-index: 2;
+}
+
+
+
+.cyber-security-module.hovering .content h1,
+.cyber-security-module.hovering .content .cyber-transition-area,
+.cyber-security-module.hovering .content .lock-icon {
+    opacity: 0; 
+    transition: opacity 0.5s ease;
+}
+
+.cyber-security-module.hovering .module-btn {
+    opacity: 1; 
+    pointer-events: auto;
 }

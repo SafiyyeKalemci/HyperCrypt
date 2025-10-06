@@ -5,6 +5,7 @@ body {
 header {
   background: white;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
@@ -43,8 +44,14 @@ header .logo p {
 
 header nav {
   flex: 1;
-  /*display: flex;*/
   justify-content: center;
+  width: 100%; /* Mobilde tam genişlik */
+  display: none; /* Başlangıçta gizli */
+  order: 3;
+}
+
+header nav.active {
+  display: block; /* Hamburger tıklanınca görünsün */
 }
 
 header nav ul {
@@ -52,14 +59,16 @@ header nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  flex-shrink: 1;
+  width: 100%;
+  flex-direction: column;
 }
 header nav ul li {
   display: inline-block;
-  margin-right: 40px;
+  margin-right: 50px;
 }
 
 header nav ul li a {
+  display: block;
   text-decoration: none;
   color: #333;
   font-size: 18px;
@@ -83,11 +92,9 @@ header nav ul li a:hover {
   }
   header nav {
     flex: none;
-
     display: none; /* Başlangıçta gizli */
     width: 100%;
     order: 2; /* logonun ve butonun altında gözüksün */
-    
   }
 
   header nav.active {
@@ -95,9 +102,10 @@ header nav ul li a:hover {
   }
 
   header nav ul {
-    flex-direction: column; /* alt alta gelsin */
-    align-items: flex-start; /* sola yasla */
+    flex-direction: column;
+    align-items: flex-start;
     margin-top: 10px;
+    padding: 0 50px;
   }
 
   header nav ul li {
@@ -112,11 +120,10 @@ header nav ul li a:hover {
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     cursor: pointer;
-    
     margin-left: auto;
-     margin-right: 6px;
+    margin-right: 6px;
     position: relative;
-     align-self: center;
+    align-self: center;
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -158,17 +165,21 @@ header nav ul li a:hover {
 
 /* Desktop görünüm */
 @media (min-width: 769px) {
+  header {
+    flex-wrap: nowrap;
+  }
   .menu-toggle {
     display: none;
   }
 
   header nav {
     display: flex; /* sadece desktopta flex olsun */
+    order: 2;
   }
 
   header nav ul {
-    flex-direction: row; /* yan yana */
-    justify-content: center; /* ortala */
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
   }
 }

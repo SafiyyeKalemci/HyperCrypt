@@ -12,8 +12,12 @@ body {
   padding: 20px 0 20px 0;
 }
 
+#fonksiyon {
+  background-color: white;
+  margin-top: 10px;
+}
+
 .content-section.reverse {
-  background: rgb(230, 248, 255);
   margin-top: 50px;
   padding: 20px 0;
 }
@@ -25,7 +29,7 @@ body {
 
 .content-section h2 {
   font-size: 23px;
-  margin: 25px 0 25px 25px;
+  margin: 20px 0 25px 25px;
 }
 
 .content-section p {
@@ -37,11 +41,12 @@ body {
 /*Örnekler Tab Alanı*/
 .examples-section {
   margin: 20px 50px;
-  padding: 20px;
+  padding: 30px;
   border: 1px solid #ddd;
   border-radius: 12px;
-  background: #fafafa;
-  max-width: 800px;
+  background: white;
+  max-width: 500px;
+  width: 90%;
 }
 .examples-section h3 {
   text-align: center;
@@ -96,13 +101,14 @@ body {
 
 /*Form kısmı*/
 .form-section {
-  background: linear-gradient(to bottom, #ffffff 25%, rgb(230, 248, 255) 100%);
+  background: linear-gradient(to bottom, #ffffff 20%, rgb(230, 248, 255) 50%);
   position: relative;
   padding-bottom: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  margin-bottom: 50px;
 }
 .form-section .form-container {
   max-width: 800px;
@@ -168,7 +174,6 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
-
   box-shadow: 0 4px 12px rgba(102, 76, 175, 0.3);
   outline: none;
   -webkit-appearance: none;
@@ -253,7 +258,7 @@ textarea {
 /*örnek-tablo*/
 #results-section {
   padding: 10px 0 50px 0;
-  background: #fdfdfd;
+  background: white;
   display: none;
 }
 
@@ -467,4 +472,132 @@ td {
 
 .custom-shape-divider-bottom-1757106152 .shape-fill {
   fill: #ffffff;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+  /* Genel içerik bölümü */
+  .content-section {
+    flex-direction: column;
+    padding: 30px 0;
+    text-align: center;
+  }
+
+  .content-section .text {
+    margin: 0 25px;
+  }
+
+  .content-section h2 {
+    font-size: 20px;
+    margin: 20px 0 15px 0;
+  }
+
+  .content-section p {
+    font-size: 16px;
+    margin: 0 0 25px 0;
+    line-height: 1.5;
+  }
+
+  /* Form bölümü */
+  .set-rule {
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 15px;
+  }
+
+  #finite-set,
+  #infinite-set {
+    width: 100%;
+  }
+
+  .form-section .form-container {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .form-container h3 {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+
+  /* Buton grupları - GENİŞLİK AYARLARI KALDIRILDI */
+  .button-group {
+    flex-direction: row; /* Yatayda kalsın */
+    flex-wrap: wrap; /* Taşarsa alt satıra geçsin */
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .button-group button {
+    /* width: 100%; KALDIRILDI */
+    padding: 10px 15px; /* Orijinal padding */
+    flex: 0 1 auto; /* İçeriğe göre genişlik */
+  }
+
+  .form-section button {
+    /* width: 90%; KALDIRILDI */
+    margin: 30px auto 0 auto;
+    padding: 12px 20px; /* Orijinal değerlere yakın */
+    display: inline-block; /* Kutucuk formunda */
+  }
+
+  .usage-guide-btn {
+    /* width: 90%; KALDIRILDI */
+    margin: 20px auto;
+    padding: 12px 20px;
+    display: inline-block; /* Kutucuk formunda */
+  }
+
+  /* Örnekler bölümü */
+  .examples-section {
+    margin: 20px 15px;
+    padding: 15px;
+  }
+
+  .example-tabs {
+    flex-direction: row; /* Yatayda kalsın */
+    flex-wrap: wrap; /* Taşarsa alt satıra geçsin */
+    gap: 8px;
+  }
+
+  .tab-btn {
+    /* width: 100%; KALDIRILDI */
+    padding: 8px 12px; /* Orijinal değerler */
+    flex: 0 1 auto; /* İçeriğe göre genişlik */
+  }
+
+  /* Tablolar */
+  .tab-content {
+    overflow-x: auto;
+  }
+
+  .tab-content table {
+    font-size: 14px;
+  }
+
+  /* Sonuçlar bölümü */
+  .results-extras {
+    flex-direction: column;
+    gap: 15px;
+    max-height: none;
+  }
+
+  .tests,
+  .ai-box {
+    flex: 1 1 100%;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  /* Tooltip */
+  .tooltip .tooltiptext {
+    width: 200px;
+    margin-left: -100px;
+    font-size: 12px;
+  }
+
+  /* Üçgen divider */
+  .custom-shape-divider-bottom-1757106152 svg {
+    height: 80px;
+  }
 }

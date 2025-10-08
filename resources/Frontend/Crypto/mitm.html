@@ -57,6 +57,31 @@
 
     /* responsive */
     @media (max-width:980px){.sim-grid{grid-template-columns:1fr;}.canvas-wrap{min-height:420px}}
+    /* Hyper-DH toggle switch */
+    .switch{
+    width:60px; height:32px; border-radius:32px;
+    background: linear-gradient(90deg,#0b0f13,#13202a);
+    border: 2px solid rgba(255,255,255,0.06);
+    display:inline-block; position:relative; padding:3px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+    transition: background 220ms ease, border-color 220ms;
+    }
+    .switch .knob{
+    width:24px; height:24px; border-radius:50%;
+    background:#e6eef6; box-shadow: 0 4px 10px rgba(2,6,23,0.6);
+    transform: translateX(0); transition: transform 220ms cubic-bezier(.2,.9,.2,1);
+    border:2px solid rgba(0,0,0,0.4);
+    }
+    .switch.on{ background: linear-gradient(90deg,#0b3a4a,#07697f); border-color: rgba(0,0,0,0.25); }
+    .switch.on .knob{ transform: translateX(28px); background:#fff; }
+
+    /* small responsive tweak for header */
+    @media (max-width:980px){
+    #hyperLabel{ display:none; }
+    .switch{ width:48px; height:28px; padding:2px; }
+    .switch .knob{ width:20px; height:20px; transform:translateX(0); }
+    .switch.on .knob{ transform: translateX(22px); }
+    }
   </style>
 </head>
 <body>
@@ -67,6 +92,19 @@
         <h1>Hiper-DH & Man‑In‑The‑Middle Simülatörü</h1>
         <p>Alice ↔ Bob iletişimini canlandırın. Eve (MITM) aktifse mesajları yakalar/degistirir. Node'lara tıklayın.</p>
       </div>
+      <!-- Hiper-DH On/Off toggle + help -->
+        <div style="margin-left:auto;display:flex;align-items:center;gap:12px">
+        <!-- Toggle wrapper -->
+        <div id="hyperToggle" style="display:flex;align-items:center;gap:8px;cursor:pointer" aria-label="Hiper-DH Aç/Kapa" role="button" tabindex="0">
+            <div class="switch" id="hyperSwitch" aria-hidden="true">
+            <div class="knob"></div>
+            </div>
+            <div id="hyperLabel" style="font-size:13px;color:var(--muted);min-width:48px;text-align:left">Hiper-DH: <span id="hyperStateText">ON</span></div>
+        </div>
+
+        <!-- Help button -->
+        <button id="hyperHelp" class="btn" title="Ne demek olduğunu gör" style="padding:6px 8px;font-size:13px">?</button>
+        </div>
     </header>
 
     <div class="sim-grid">
@@ -81,6 +119,12 @@
             <div class="small">Hiper-İşlem Kuralı</div>
             <input type="text" id="ruleInput" class="mono" value="Math.pow(a, b) % n" style="width: 150px; background: transparent; border: 1px solid #334155; color: #9be7ff;">
           </div>
+          <div class="info-row">
+            <div class="small">Küme (p, g)</div>
+            <input type="number" id="modInput" class="mono" value="23" style="width:60px;background:transparent;border:1px solid #334155;color:#9be7ff;">
+            <input type="number" id="genInput" class="mono" value="5" style="width:60px;background:transparent;border:1px solid #334155;color:#9be7ff;">
+          </div>
+
         </div>
 
         <div style="margin-top:12px" class="controls">
@@ -238,8 +282,16 @@
       while(e>0n){ if(e & 1n) result = (result*b)%mod; b=(b*b)%mod; e >>= 1n }
       return result;
     }*/
+    state.modulus = parseInt(document.getElementById('modInput').value);
+    state.generator = parseInt(document.getElementById('genInput').value);
 
     async function generate(who) {
+        if (!state.hyperDHEnabled) {
+            log('Hiper-DH kapalı: Anahtar hesaplama atlandı.');
+            alert('Hiper-DH modu kapalı olduğu için anahtar hesaplanamaz. Açmak için başlıktaki düğmeyi kullanın.');
+            return;
+        }
+
         log(`${who.toUpperCase()} genel anahtarını hesaplıyor...`);
 
         const rule = document.getElementById('ruleInput').value;
@@ -364,7 +416,9 @@
       }
       step();
     }
-
+    if (!state.alicePublic && !state.bobPublic) {
+        log("Hiper-DH kapalı mod: Doğrudan iletişim başlatıldı.");
+    }
     // simulate message send
     function sendMessage(sender){
       const message = (sender==='alice')? 'Merhaba Bob, gizli bilgi.' : 'Merhaba Alice, cevap.';
@@ -415,6 +469,72 @@
     document.getElementById('modVal').textContent = state.modulus;
     document.getElementById('genVal').textContent = state.generator;
     renderSelected();
+
+    // --- Hyper-DH toggle state (EKLE) ---
+    state.hyperDHEnabled = true; // başlangıçta açık
+
+    // render toggle based on state
+    function renderHyperToggle(){
+    const sw = document.getElementById('hyperSwitch');
+    const label = document.getElementById('hyperStateText');
+    if(!sw || !label) return;
+    if(state.hyperDHEnabled){
+        sw.classList.add('on');
+        label.textContent = 'ON';
+        label.style.color = 'var(--success)';
+    } else {
+        sw.classList.remove('on');
+        label.textContent = 'OFF';
+        label.style.color = 'var(--danger)';
+    }
+
+    // Eğer Hyper-DH kapalıysa rule/mod/gen inputlarını devre dışı bırak (kullanıcı doğrudan mesaj atabilir)
+    const ruleInputEl = document.getElementById('ruleInput');
+    const modInputEl  = document.getElementById('modInput');
+    const genInputEl  = document.getElementById('genInput');
+
+    if(ruleInputEl) ruleInputEl.disabled = !state.hyperDHEnabled;
+    if(modInputEl)  modInputEl.disabled  = !state.hyperDHEnabled;
+    if(genInputEl)  genInputEl.disabled  = !state.hyperDHEnabled;
+
+    // görsel olarak buton metnini güncelle
+    const eveBtn = document.getElementById('eveBtn');
+    if(eveBtn){
+        // (isteğe bağlı) buton stilini etkileme veya yardımcı metin güncelleme
+    }
+    }
+
+    // toggle function (attach to click)
+    function toggleHyperDH(){
+    state.hyperDHEnabled = !state.hyperDHEnabled;
+    log('Hiper-DH modu -> ' + (state.hyperDHEnabled ? 'AÇIK' : 'KAPALI'));
+    renderHyperToggle();
+    renderSelected();
+    }
+
+    // show help explanation
+    function showHyperHelp(){
+    const message = "Hiper-DH ON: Kural ve küme (p,g) kullanılarak genel anahtarlar ve ortak sırlar hesaplanır.\n\nHiper-DH OFF: Anahtar hesaplama/devreye alma atlanır; ileti doğrudan gönderilir. Eve (MITM) aktifse paketleri yakalamaya/degistirmeye devam eder. (Rule/Mod/Gen girişleri kapatılır ve yok sayılır.)";
+    alert(message);
+    }
+
+    // attach events to the header toggle / help (call once on init)
+    (function attachHyperToggleHandlers(){
+    // small delay to ensure DOM elements exist
+    window.addEventListener('DOMContentLoaded', ()=> {
+        const wrapper = document.getElementById('hyperToggle');
+        const helpBtn = document.getElementById('hyperHelp');
+
+        if(wrapper) {
+        wrapper.addEventListener('click', toggleHyperDH);
+        wrapper.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); toggleHyperDH(); }});
+        }
+        if(helpBtn) helpBtn.addEventListener('click', showHyperHelp);
+
+        // initial render
+        renderHyperToggle();
+    });
+    })();
 
   </script>
 </body>

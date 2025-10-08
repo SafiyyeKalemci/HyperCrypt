@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hiper Şifreleme Modülü</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="encryption.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Hiper Şifreleme Modülü</h1>
+        <div class="mode-toggle">
+          <span class="mode-label">Custom Map Mod</span>
+          <label class="switch">
+            <input type="checkbox" id="modeSwitcher" />
+            <span class="slider round"></span>
+          </label>
+          <span class="mode-label">Binary Mod</span>
+        </div>
+      </header>
+
+      <!-- Custom Map Mod Content -->
+      <div id="customMapMode" class="mode-content">
+        <div class="input-section">
+          <textarea
+            id="customMessageInput"
+            placeholder="Mesajınızı buraya yazın..."
+            rows="4"
+          ></textarea>
+        </div>
+
+        <div class="custom-map-grid">
+          <div class="keyboard-section">
+            <div class="keyboard-grid" id="qKeyboard">
+              <!-- Klavye tuşları buraya JS ile eklenecek -->
+            </div>
+          </div>
+
+          <div class="rule-preview-section">
+            <div class="rule-input-group">
+              <label for="customRuleInput">Kural:</label>
+              <textarea
+                id="customRuleInput"
+                placeholder="Örn: (x * 2) % 26"
+                rows="3"
+              ></textarea>
+            </div>
+            <div class="preview-section">
+              <h3>Şifreli Önizleme:</h3>
+              <div id="customEncryptedPreview" class="preview-output"></div>
+            </div>
+          </div>
+        </div>
+
+        <button id="sendCustomButton" class="btn primary">
+          Şifrele ve Gönder
+        </button>
+
+        <div class="result-section">
+          <h3>İletişim Sonucu:</h3>
+          <div class="communication-log" id="customCommunicationLog">
+            <!-- Mesaj ve çözüm detayları buraya gelecek -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Binary Mod Content -->
+      <div id="binaryMode" class="mode-content hidden">
+        <div class="input-section">
+          <textarea
+            id="binaryMessageInput"
+            placeholder="Mesajınızı buraya yazın..."
+            rows="4"
+          ></textarea>
+        </div>
+
+        <div class="binary-grid">
+          <div class="binary-rule-section">
+            <label for="binaryRuleInput">Uygulanacak Kural (Bit Başına):</label>
+            <textarea
+              id="binaryRuleInput"
+              placeholder="Örn: bit ^ 1 (XOR 1)"
+              rows="3"
+            ></textarea>
+            <div class="preview-section">
+              <h3>Binary Önizleme:</h3>
+              <div id="binaryPreviewOutput" class="preview-output"></div>
+            </div>
+          </div>
+        </div>
+
+        <button id="sendBinaryButton" class="btn primary">
+          Şifrele ve Gönder
+        </button>
+
+        <div class="result-section">
+          <h3>İletişim Sonucu:</h3>
+          <div class="communication-log" id="binaryCommunicationLog">
+            <!-- Mesaj ve çözüm detayları buraya gelecek -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="encryption.js"></script>
+  </body>
+</html>

@@ -223,7 +223,7 @@ body {
   box-shadow: 0 10px 20px rgba(102, 76, 175, 0.3);
 }
 
-.cyber-security-module-container {
+.modules-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -235,9 +235,19 @@ body {
   padding: 50px 20px;
 }
 
+.modules-wrapper {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  width: 100%;
+}
+
 .cyber-security-module {
   position: relative;
-  width: 520px;
+  width: 450px;
   height: 320px;
   background: radial-gradient(circle at 30% 30%, #a692e8, #6046b6);
   border: 2px solid rgba(138, 107, 225, 0.7);
@@ -250,6 +260,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex: 1;
+  min-width: 400px;
+  max-width: 500px;
 }
 
 .cyber-security-module:hover {
@@ -348,6 +361,87 @@ body {
 }
 
 .cyber-security-module.hovering .module-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Encryption Module Styles */
+.encryption-module {
+  position: relative;
+  width: 450px;
+  height: 320px;
+  background: radial-gradient(circle at 30% 30%, #4da8da, #287db1);
+  border: 2px solid rgba(77, 168, 218, 0.7);
+  box-shadow: 0 0 25px rgba(77, 168, 218, 0.4), 0 0 50px rgba(0, 255, 174, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  min-width: 400px;
+  max-width: 500px;
+}
+
+.encryption-module:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px rgba(77, 168, 218, 0.5);
+}
+
+.encryption-icon {
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: white;
+}
+
+.encryption-module h1 {
+  font-size: 2em;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.encryption-transition-area {
+  margin-top: 10px;
+  font-size: 1.1em;
+  color: #090e57;
+}
+
+.encryption-module .hover-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6) contrast(1.2) saturate(1.4);
+  display: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.encryption-module.hovering .hover-video {
+  display: block;
+  opacity: 1;
+}
+
+.encryption-module.hovering .content h1,
+.encryption-module.hovering .content .encryption-transition-area,
+.encryption-module.hovering .content .encryption-icon {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.encryption-module.hovering .module-btn {
   opacity: 1;
   pointer-events: auto;
 }
@@ -598,29 +692,40 @@ body {
     text-align: center;
   }
 
-  cyber-security-module-container {
+  .modules-container {
     flex-direction: column;
     padding: 40px 15px;
   }
 
-  .cyber-security-module {
+  .modules-wrapper {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cyber-security-module,
+  .encryption-module {
     width: 90%;
     max-width: 400px;
     height: 260px;
+    min-width: unset;
+    max-width: 400px;
   }
 
-  .lock-icon {
+  .lock-icon,
+  .encryption-icon {
     width: 40px;
     height: 40px;
     margin-bottom: 15px;
   }
 
-  .cyber-security-module h1 {
+  .cyber-security-module h1,
+  .encryption-module h1 {
     font-size: clamp(1.2rem, 4vw, 1.5rem);
     margin-bottom: 8px;
   }
 
-  .cyber-transition-area {
+  .cyber-transition-area,
+  .encryption-transition-area {
     font-size: clamp(0.9rem, 3vw, 1rem);
   }
 
@@ -699,28 +804,32 @@ body {
     max-width: 220px;
   }
 
-  .cyber-security-module-container {
+  .modules-container {
     padding: 10px 10px;
     min-height: 400px;
   }
 
-  .cyber-security-module {
+  .cyber-security-module,
+  .encryption-module {
     width: 90%;
     height: 220px;
     border-radius: 15px;
   }
 
-  .lock-icon {
+  .lock-icon,
+  .encryption-icon {
     width: 35px;
     height: 35px;
     margin-bottom: 12px;
   }
 
-  .cyber-security-module h1 {
+  .cyber-security-module h1,
+  .encryption-module h1 {
     font-size: clamp(1rem, 5vw, 1.3rem);
   }
 
-  .cyber-transition-area {
+  .cyber-transition-area,
+  .encryption-transition-area {
     font-size: clamp(0.8rem, 3.5vw, 0.9rem);
   }
 
@@ -731,13 +840,15 @@ body {
   }
 
   /* Hover yerine dokunma davranışı (mobil için) */
-  .cyber-security-module:hover {
+  .cyber-security-module:hover,
+  .encryption-module:hover {
     transform: none;
     box-shadow: 0 0 25px rgba(102, 76, 175, 0.4);
   }
 
   /* Video efektleri mobilde otomatik aktif olmasın */
-  .cyber-security-module.hovering .hover-video {
+  .cyber-security-module.hovering .hover-video,
+  .encryption-module.hovering .hover-video {
     opacity: 0.9;
   }
   

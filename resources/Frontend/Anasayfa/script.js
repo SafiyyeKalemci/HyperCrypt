@@ -1,15 +1,33 @@
-const module = document.querySelector(".cyber-security-module");
-const video = module.querySelector(".hover-video");
+// Cyber Security Module
+const cyberModule = document.querySelector(".cyber-security-module");
+const cyberVideo = cyberModule.querySelector(".hover-video");
 
-module.addEventListener("mouseenter", () => {
-  video.style.display = "block";
-  module.classList.add("hovering");
-  video.play();
+cyberModule.addEventListener("mouseenter", () => {
+  cyberVideo.style.display = "block";
+  cyberModule.classList.add("hovering");
+  cyberVideo.play();
 });
 
-module.addEventListener("mouseleave", () => {
-  video.pause();
-  video.currentTime = 0;
-  video.style.display = "none";
-  module.classList.remove("hovering");
+cyberModule.addEventListener("mouseleave", () => {
+  cyberVideo.pause();
+  cyberVideo.currentTime = 0;
+  cyberVideo.style.display = "none";
+  cyberModule.classList.remove("hovering");
+});
+
+// Encryption Module
+const encryptionModule = document.querySelector(".encryption-module");
+const encryptionVideo = encryptionModule.querySelector(".hover-video");
+
+encryptionModule.addEventListener("mouseenter", () => {
+  encryptionVideo.style.display = "block";
+  encryptionModule.classList.add("hovering");
+  encryptionVideo.play();
+});
+
+encryptionModule.addEventListener("mouseleave", () => {
+  encryptionVideo.pause();
+  encryptionVideo.currentTime = 0;
+  encryptionVideo.style.display = "none";
+  encryptionModule.classList.remove("hovering");
 });

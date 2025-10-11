@@ -9,7 +9,7 @@ body {
   align-items: center;
   justify-content: space-between;
   background: rgb(230, 248, 255);
-  padding: 20px 0 20px 0;
+  padding-top: 20px;
 }
 
 #fonksiyon {
@@ -23,7 +23,7 @@ body {
 }
 
 .content-section .text {
-  margin: 0px 100px;
+  margin: 0px 90px;
   flex: 1;
 }
 
@@ -35,7 +35,10 @@ body {
 .content-section p {
   font-size: 17px;
   line-height: 1.5;
-  margin: 00 50px 45px;
+  margin: 0 50px 5px;
+}
+.content-section li{
+  margin-left: 60px;
 }
 
 /*Örnekler Tab Alanı*/

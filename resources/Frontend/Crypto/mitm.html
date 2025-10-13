@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Hiper-DH & MITM (Eve) Simülatörü</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     :root{
       --bg:#0b0f13; --panel:#0f1720; --card:#0f1822; --muted:#94a3b8; --accent:#7c3aed; --accent-2:#06b6d4; --success:#10b981; --danger:#ef4444;
@@ -81,6 +82,201 @@
     .switch{ width:48px; height:28px; padding:2px; }
     .switch .knob{ width:20px; height:20px; transform:translateX(0); }
     .switch.on .knob{ transform: translateX(22px); }
+    }
+
+    /* Pop-up Styles */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .popup-overlay.show {
+      display: flex;
+    }
+
+    .popup-content {
+      background: linear-gradient(180deg, var(--panel), #071927);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      animation: slideIn 0.3s ease;
+    }
+
+    .popup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .popup-header h3 {
+      margin: 0;
+      color: var(--accent);
+      font-size: 20px;
+    }
+
+    .popup-close {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+    }
+
+    .popup-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .popup-body {
+      padding: 24px;
+    }
+
+    .info-section {
+      margin-bottom: 24px;
+    }
+
+    .info-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .info-section h4 {
+      color: var(--accent-2);
+      margin: 0 0 12px 0;
+      font-size: 16px;
+    }
+
+    .info-section p {
+      color: #e6eef6;
+      line-height: 1.6;
+      margin: 0 0 12px 0;
+    }
+
+    .info-section ul, .info-section ol {
+      color: #e6eef6;
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    .info-section li {
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .info-section strong {
+      color: var(--accent);
+    }
+
+    /* Help Button */
+    .help-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+      transition: all 0.3s ease;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .help-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(124, 58, 237, 0.6);
+    }
+
+    /* Home Button */
+    .home-button {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--success), #059669);
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+      transition: all 0.3s ease;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .home-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(16, 185, 129, 0.6);
+      color: white;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { 
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .popup-content {
+        width: 95%;
+        margin: 20px;
+      }
+      
+      .popup-header, .popup-body {
+        padding: 16px;
+      }
+      
+      .help-button, .home-button {
+        width: 48px;
+        height: 48px;
+        font-size: 18px;
+      }
     }
   </style>
 </head>
@@ -229,6 +425,56 @@
 
     <footer>Bu simülatör tamamen istemci tarafında çalışır — MITM davranışını görselleştirir. Gerçek kriptografi için güçlü asal sayılar ve kütüphaneler kullanın.</footer>
   </div>
+
+  <!-- Information Pop-up -->
+  <div id="infoPopup" class="popup-overlay">
+    <div class="popup-content">
+      <div class="popup-header">
+        <h3>Hiper-DH & MITM Simülatörü Hakkında</h3>
+        <button class="popup-close" onclick="closePopup()">&times;</button>
+      </div>
+      <div class="popup-body">
+        <div class="info-section">
+          <h4>🔐 Hiper-Diffie-Hellman Protokolü</h4>
+          <p>Bu simülatör, hiperhalkalar kullanarak geliştirilmiş Diffie-Hellman anahtar değişim protokolünü gösterir. Klasik DH protokolünden farklı olarak, hiperhalka yapısı daha güçlü güvenlik sağlar.</p>
+        </div>
+        <div class="info-section">
+          <h4>👥 Katılımcılar</h4>
+          <ul>
+            <li><strong>Alice:</strong> İlk taraf, gizli anahtar (a) ile genel anahtar (A) üretir</li>
+            <li><strong>Bob:</strong> İkinci taraf, gizli anahtar (b) ile genel anahtar (B) üretir</li>
+            <li><strong>Eve:</strong> Man-in-the-Middle saldırganı, mesajları yakalayabilir ve değiştirebilir</li>
+          </ul>
+        </div>
+        <div class="info-section">
+          <h4>⚙️ Nasıl Kullanılır</h4>
+          <ol>
+            <li>Hiper-DH modunu açın/kapatın (üst kısımdaki toggle)</li>
+            <li>Alice veya Bob'u seçin ve "Genel Anahtar Hesapla" butonuna tıklayın</li>
+            <li>Her iki tarafın genel anahtarları hesaplandıktan sonra ortak sırlar otomatik hesaplanır</li>
+            <li>Eve'yi aktif ederek MITM saldırısını simüle edin</li>
+            <li>Mesaj göndererek iletişimi test edin</li>
+          </ol>
+        </div>
+        <div class="info-section">
+          <h4>🔧 Teknik Detaylar</h4>
+          <p><strong>Modulus (p):</strong> Asal sayı, güvenlik için büyük olmalı</p>
+          <p><strong>Üreteç (g):</strong> Modulus'a göre primitive root</p>
+          <p><strong>Kural:</strong> Hiperhalka işlemi tanımlar (örn: Math.pow(a, b) % n)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Button -->
+  <button id="helpButton" class="help-button" onclick="openPopup()" title="Yardım">
+    <i class="fas fa-question"></i>
+  </button>
+
+  <!-- Home Button -->
+  <a href="../Anasayfa/index.html" class="home-button" title="Ana Sayfaya Dön">
+    <i class="fas fa-home"></i>
+  </a>
 
   <script>
     const API_BASE_URL = 'https://hypercrypt.up.railway.app';
@@ -535,6 +781,34 @@
         renderHyperToggle();
     });
     })();
+
+    // Pop-up functions
+    function openPopup() {
+      const popup = document.getElementById('infoPopup');
+      popup.classList.add('show');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    function closePopup() {
+      const popup = document.getElementById('infoPopup');
+      popup.classList.remove('show');
+      document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+
+    // Close popup when clicking outside
+    document.addEventListener('click', function(event) {
+      const popup = document.getElementById('infoPopup');
+      if (event.target === popup) {
+        closePopup();
+      }
+    });
+
+    // Close popup with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closePopup();
+      }
+    });
 
   </script>
 </body>

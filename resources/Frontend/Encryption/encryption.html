@@ -8,6 +8,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="encryption.css" />
   </head>
   <body>
@@ -106,6 +107,60 @@
         </div>
       </div>
     </div>
+
+    <!-- Information Pop-up -->
+    <div id="infoPopup" class="popup-overlay">
+      <div class="popup-content">
+        <div class="popup-header">
+          <h3>Hiper Şifreleme Modülü Hakkında</h3>
+          <button class="popup-close" onclick="closePopup()">&times;</button>
+        </div>
+        <div class="popup-body">
+          <div class="info-section">
+            <h4>🔐 Hiper Şifreleme Sistemi</h4>
+            <p>Bu modül, hiperhalkalar kullanarak geliştirilmiş şifreleme tekniklerini gösterir. Klasik şifreleme yöntemlerinden farklı olarak, hiperhalka yapısı daha karmaşık ve güvenli şifreleme sağlar.</p>
+          </div>
+          <div class="info-section">
+            <h4>🎯 İki Şifreleme Modu</h4>
+            <ul>
+              <li><strong>Custom Map Mod:</strong> Klavye tuşlarını özelleştirerek harf-harf şifreleme</li>
+              <li><strong>Binary Mod:</strong> Metni binary formata çevirerek bit seviyesinde şifreleme</li>
+            </ul>
+          </div>
+          <div class="info-section">
+            <h4>⚙️ Nasıl Kullanılır</h4>
+            <ol>
+              <li>Üst kısımdaki toggle ile mod seçimi yapın</li>
+              <li>Mesajınızı yazın</li>
+              <li>Şifreleme kuralınızı tanımlayın</li>
+              <li>Önizleme bölümünde sonucu kontrol edin</li>
+              <li>"Şifrele ve Gönder" butonuna tıklayın</li>
+            </ol>
+          </div>
+          <div class="info-section">
+            <h4>🔧 Teknik Detaylar</h4>
+            <p><strong>Custom Map Mod:</strong> Her harf için özel değer atayarak şifreleme</p>
+            <p><strong>Binary Mod:</strong> Metni 0 ve 1'lere çevirerek bit işlemleri</p>
+            <p><strong>Kural Sistemi:</strong> JavaScript fonksiyonları ile özel şifreleme algoritmaları</p>
+          </div>
+          <div class="info-section">
+            <h4>💡 Örnek Kurallar</h4>
+            <p><strong>Custom Map:</strong> (x * 2) % 26, (x + 3) % 26</p>
+            <p><strong>Binary:</strong> bit ^ 1 (XOR), bit & 0 (AND), bit | 1 (OR)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Help Button -->
+    <button id="helpButton" class="help-button" onclick="openPopup()" title="Yardım">
+      <i class="fas fa-question"></i>
+    </button>
+
+    <!-- Home Button -->
+    <a href="../Anasayfa/index.html" class="home-button" title="Ana Sayfaya Dön">
+      <i class="fas fa-home"></i>
+    </a>
 
     <script src="encryption.js"></script>
   </body>

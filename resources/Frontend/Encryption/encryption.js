@@ -260,3 +260,31 @@ document.addEventListener('DOMContentLoaded', () => {
   createQKeyboard(); // Custom Map modu için klavyeyi oluştur
   updateCustomPreview(); // İlk yüklemede önizlemeyi güncelle
 });
+
+// Pop-up functions
+function openPopup() {
+  const popup = document.getElementById('infoPopup');
+  popup.classList.add('show');
+  document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+function closePopup() {
+  const popup = document.getElementById('infoPopup');
+  popup.classList.remove('show');
+  document.body.style.overflow = 'auto'; // Restore scrolling
+}
+
+// Close popup when clicking outside
+document.addEventListener('click', function(event) {
+  const popup = document.getElementById('infoPopup');
+  if (event.target === popup) {
+    closePopup();
+  }
+});
+
+// Close popup with Escape key
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    closePopup();
+  }
+});

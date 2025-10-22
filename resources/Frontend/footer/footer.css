@@ -3,8 +3,7 @@
   color: #fff;
   padding: 30px 20px 10px;
   font-size: 14px;
-  font-family: 'Inter', sans-serif;
-
+  font-family: "Inter", sans-serif;
 }
 
 .footer-container {
@@ -49,19 +48,23 @@
   gap: 15px;
   margin-top: 10px;
   justify-content: center;
-  
 }
 
 .footer .logos img {
   height: 60px;
-  border-radius: 6px;
+  padding: 5px;
+}
+
+.footer .logos img.Tübitak {
+  height: 60px;
+  border-radius: 50%;
   padding: 5px;
 }
 
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   text-align: center;
-  margin-top: 30px;
+  margin-top: 20px;
   padding-top: 15px;
   font-size: 13px;
   color: #aaa;

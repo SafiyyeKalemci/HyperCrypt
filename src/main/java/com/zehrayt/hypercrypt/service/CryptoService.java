@@ -95,11 +95,27 @@ public class CryptoService {
     }
 
     /**
-     * DÜZELTME (Hakem 2 uyarısı): Genelleştirilmiş bir Diffie-Hellman protokolünün
-     * çalışabilmesi için kuralın rho(x,k) = "x ile k'yi birleştiren fonksiyon" olarak
-     * bir "değişmeli aile" (commuting family) oluşturması gerekir:
+     * DÜZELTME (Hakem 2 uyarısı, Round 2): Genelleştirilmiş bir Diffie-Hellman
+     * protokolünün çalışabilmesi için kuralın rho(x,k) = "x ile k'yi birleştiren
+     * fonksiyon" olarak bir "değişmeli aile" (commuting family) oluşturması gerekir:
      *
      *      rho(rho(g,k2),k1) == rho(rho(g,k1),k2)      (her g, k1, k2 için)
+     *
+     * ÖNEMLİ (Round 2 hakem düzeltmesi): Bu eşitlik, TAM SONUÇ KÜMELERİ üzerinden
+     * kontrol edilmelidir; yalnızca kümelerin en küçük elemanlarının (min) eşitliği
+     * YETERLİ DEĞİLDİR. Bunun nedeni calculateSharedSecret()'ın deriveSharedValue()
+     * aracılığıyla SONUÇ KÜMESİNİN TAMAMINI (kümenin tüm elemanları sıralanıp
+     * SHA-256 ile karıştırılarak) hash'lemesidir — Collections.min() DEĞİL. Önceki
+     * sürümde bu metot yalnızca min(rho(pub2,k1)) == min(rho(pub1,k2)) kontrolü
+     * yapıyordu; bu, aynı minimuma sahip ama farklı elemanlar içeren iki küme için
+     * YANLIŞLIKLA "uyumlu" kararı verebiliyordu (min eşleşse bile deriveSharedValue
+     * FARKLI hash'ler üretir, yani Alice ve Bob sessizce farklı ortak sırlara
+     * ulaşırdı — tam da bu metodun engellemesi gereken durum). Bu yüzden burada
+     * gerçek protokolün son adımıyla (calculateSharedSecret) birebir tutarlı olacak
+     * şekilde TAM KÜME eşitliği (Set.equals) kontrol edilir. Ara adımda iletilen
+     * genel anahtar (pub1/pub2) yine de Collections.min() ile indirgenir, çünkü
+     * calculatePublicValue() gerçekte ağa yalnızca bu min değerini gönderir; burada
+     * taklit edilmek istenen de tam olarak budur.
      *
      * Bu koşul, klasik üstel alma (g^k) veya (a*b), (a+b) gibi hem birleşmeli hem
      * değişmeli işlemlerde otomatik sağlanır; ama makalenin ilk düzeltme denemesinde
@@ -135,15 +151,20 @@ public class CryptoService {
             try {
                 int pub1 = Collections.min(rule.apply(g, k1));
                 int pub2 = Collections.min(rule.apply(g, k2));
-                int sharedViaK1First = Collections.min(rule.apply(pub2, k1));
-                int sharedViaK2First = Collections.min(rule.apply(pub1, k2));
 
-                if (sharedViaK1First != sharedViaK2First) {
+                // DÜZELTME: Artık TAM KÜMELER karşılaştırılıyor (Collections.min(...) ile
+                // indirgenmiş tek sayılar değil), çünkü calculateSharedSecret() nihai ortak
+                // sırrı tam kümenin SHA-256 hash'i olarak üretiyor (bkz. deriveSharedValue).
+                Set<Integer> sharedViaK1First = rule.apply(pub2, k1);
+                Set<Integer> sharedViaK2First = rule.apply(pub1, k2);
+
+                if (!sharedViaK1First.equals(sharedViaK2First)) {
                     throw new IllegalStateException(
                         "Bu kural Diffie-Hellman anahtar değişimi için uygun değil: "
-                        + "rho(rho(g,k2),k1) = rho(rho(g,k1),k2) eşitliğini sağlamıyor, "
-                        + "bu yüzden Alice ve Bob farklı ortak sırlara ulaşır. Kuralın a ve b "
-                        + "üzerinde aynı (değişmeli/birleşmeli) yapıda olması gerekir "
+                        + "rho(rho(g,k2),k1) = rho(rho(g,k1),k2) eşitliği TAM SONUÇ KÜMESİ "
+                        + "düzeyinde sağlanmıyor, bu yüzden Alice ve Bob (deriveSharedValue "
+                        + "tüm kümeyi hash'lediği için) farklı ortak sırlara ulaşır. Kuralın "
+                        + "a ve b üzerinde aynı (değişmeli/birleşmeli) yapıda olması gerekir "
                         + "(örn. a*b, a+b, ya da klasik üstel alma).");
                 }
             } catch (IllegalStateException e) {
